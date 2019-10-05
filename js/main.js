@@ -1,9 +1,8 @@
 'use strict';
 
 var countOfPhotos = 25;
-
-var startLikesRange = 1;
-var endLikesRange = 25;
+var minLikes = 15;
+var maxLikes = 200;
 
 var comments = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -12,6 +11,11 @@ var comments = ['Всё отлично!',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
+var avatars = ['img/avatar-1.svg', 'img/avatar-2.svg', 'img/avatar-3.svg', 'img/avatar-4.svg', 'img/avatar-5.svg', 'img/avatar-6.svg',
+  'img/htmla-logo.svg', 'img/icon-arrow.png', 'img/icon-cross.svg', 'img/icon-warning.svg', 'img/logo-background-1.jpg', 'img/logo-background-2.jpg',
+  'img/logo-background-3.jpg', 'img/logo-mask.jpg', 'img/spinner.svg', 'img/spinner-blue.svg', 'img/sprite.png', 'img/upload-button.svg',
+  'img/upload-button-bg.png', 'img/upload-default-image.jpg'];
+
 var authorNames = ['Маша', 'Паша', 'Таня', 'Вася', 'Денис', 'Вова', 'Алёна', 'Игорь', 'Сергей', 'Дима', 'Миша', 'Саша', 'Никита'];
 
 var getRandomElement = function (array) {
@@ -19,49 +23,23 @@ var getRandomElement = function (array) {
   return array[randomIndex];
 };
 
-var getRandomNumberLikes = function (minValue, maxValue) {
-  var minNumber = Math.ceil(minValue);
-  var maxNumber = Math.ceil(maxValue);
+var getRandomNumberLikes = function (minRangeLikes, maxRangeLikes) {
+  var minLikesNumber = Math.ceil(minRangeLikes);
+  var maxLikesNumber = Math.ceil(maxRangeLikes);
 
-  return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+  return Math.floor(Math.random() * (maxLikesNumber - minLikesNumber + 1)) + minLikesNumber;
 };
 
-var getRandomNumber = function () {
-  //return Number.parseInt((new Date().valueOf() + Math.random()).toString().replace(".", ""));
-  return Math.floor(new Date().valueOf() * Math.random() / 1000);
-}
-
-var getArrayRandomRange = function (rangeLength) {
-  var uniqueNumbers = [];
-  for (var i = 0; i<=rangeLength; i++) {
-    uniqueNumbers.push(getRandomNumber());
-  }
-
-  return uniqueNumbers;
-}
-
-var imageNumbers = getArrayRandomRange(endLikesRange);
-console.log(imageNumbers);
-
-var getRandomUniqueNumberImage = function (uniqueNumbers) {
-  return uniqueNumbers.shift();
-}
-
-var imageNumber = getRandomUniqueNumberImage(imageNumbers);
-console.log(imageNumber);
-//var randomLikes = getRandomUniqueNumberImage(startLikesRange, endLikesRange);
-//console.log(randomLikes);
-
-var getPhotoDescription = function (photosCount, imageNumbers) {
+var getPhotoDescription = function (photosCount) {
   var randomPhotos = [];
 
-  for (var i = 0; i < photosCount; i++) {
+  for (var i = 1; i <= photosCount; i++) {
     randomPhotos.push({
-      url: getRandomUniqueNumberImage(imageNumbers) + '.jpg',
+      url: i + '.jpg',
       description: 'Описание фотографии',
-      likes: getRandomNumberLikes(15, 200),
+      likes: getRandomNumberLikes(minLikes, maxLikes),
       comment: {
-        avatar: 'avatar',
+        avatar: getRandomElement(avatars),
         message: getRandomElement(comments),
         author: getRandomElement(authorNames)
       }
@@ -71,9 +49,4 @@ var getPhotoDescription = function (photosCount, imageNumbers) {
   return randomPhotos;
 };
 
-var post = getPhotoDescription(countOfPhotos, imageNumbers);
-console.log(post);
-
-/* var randomComment = getRandomElement(comments);
-console.log(randomComment);*/
-
+console.log(getPhotoDescription(countOfPhotos));
