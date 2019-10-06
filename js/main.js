@@ -11,10 +11,7 @@ var comments = ['Всё отлично!',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
-var avatars = ['img/avatar-1.svg', 'img/avatar-2.svg', 'img/avatar-3.svg', 'img/avatar-4.svg', 'img/avatar-5.svg', 'img/avatar-6.svg',
-  'img/htmla-logo.svg', 'img/icon-arrow.png', 'img/icon-cross.svg', 'img/icon-warning.svg', 'img/logo-background-1.jpg', 'img/logo-background-2.jpg',
-  'img/logo-background-3.jpg', 'img/logo-mask.jpg', 'img/spinner.svg', 'img/spinner-blue.svg', 'img/sprite.png', 'img/upload-button.svg',
-  'img/upload-button-bg.png', 'img/upload-default-image.jpg'];
+var avatars = ['img/avatar-1.svg', 'img/avatar-2.svg', 'img/avatar-3.svg', 'img/avatar-4.svg', 'img/avatar-5.svg', 'img/avatar-6.svg'];
 
 var authorNames = ['Маша', 'Паша', 'Таня', 'Вася', 'Денис', 'Вова', 'Алёна', 'Игорь', 'Сергей', 'Дима', 'Миша', 'Саша', 'Никита'];
 
@@ -49,4 +46,41 @@ var getPhotoDescription = function (photosCount) {
   return randomPhotos;
 };
 
-console.log(getPhotoDescription(countOfPhotos));
+var photoCollection = getPhotoDescription(countOfPhotos);
+
+var createRandomPhoto = function (photos) {
+
+  var photoTemplate = function () {
+    return document.querySelector('#picture').content.querySelector('.picture');
+  };
+
+  var currentPicture  = function () {
+    return document.querySelector('.pictures');
+  };
+
+  for (var i = 0; i < photos.length; i++) {
+    var photoElement = photoTemplate().cloneNode(true);
+
+    var getPictureAddress = function () {
+      return photoElement.querySelector('.picture__img');
+    };
+
+    var getPictureLikes = function () {
+      return photoElement.querySelector('.picture__likes');
+    };
+
+    var getPictureComments = function () {
+      return photoElement.querySelector('.picture__comments');
+    };
+
+    getPictureAddress().src = 'photos/' + photos[i].url;
+    getPictureLikes().textContent = photos[i].likes;
+    getPictureComments().textContent = photos[i].comment.message;
+
+    currentPicture().appendChild(photoElement);
+  };
+
+  return photos;
+};
+
+createRandomPhoto(photoCollection);
