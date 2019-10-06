@@ -54,7 +54,7 @@ var createRandomPhoto = function (photos) {
     return document.querySelector('#picture').content.querySelector('.picture');
   };
 
-  var currentPicture  = function () {
+  var currentPicture = function () {
     return document.querySelector('.pictures');
   };
 
@@ -78,7 +78,7 @@ var createRandomPhoto = function (photos) {
     getPictureComments().textContent = photos[i].comment.message;
 
     currentPicture().appendChild(photoElement);
-  };
+  }
 
   return photos;
 };
