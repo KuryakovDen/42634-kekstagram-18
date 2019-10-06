@@ -84,3 +84,9 @@ var createRandomPhoto = function (photos) {
 };
 
 createRandomPhoto(photoCollection);
+
+var getShowBigPicture = function () {
+  document.querySelector('.big-picture').classList.remove('hidden');
+};
+
+getShowBigPicture();
