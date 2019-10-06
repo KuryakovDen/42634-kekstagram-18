@@ -32,7 +32,7 @@ var getPhotoDescription = function (photosCount) {
 
   for (var i = 1; i <= photosCount; i++) {
     randomPhotos.push({
-      url: i + '.jpg',
+      url: 'photos/' + i + '.jpg',
       description: 'Описание фотографии',
       likes: getRandomNumberLikes(minLikes, maxLikes),
       comment: {
@@ -73,7 +73,7 @@ var createRandomPhoto = function (photos) {
       return photoElement.querySelector('.picture__comments');
     };
 
-    getPictureAddress().src = 'photos/' + photos[i].url;
+    getPictureAddress().src = photos[i].url;
     getPictureLikes().textContent = photos[i].likes;
     getPictureComments().textContent = photos[i].comment.message;
 
