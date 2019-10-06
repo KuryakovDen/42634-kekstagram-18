@@ -89,4 +89,15 @@ var getShowBigPicture = function () {
   document.querySelector('.big-picture').classList.remove('hidden');
 };
 
+var getCommentCount = function () {
+  document.querySelector('.social__comment-count').classList.add('visually-hidden');
+};
+
+var getCommentsLoader = function () {
+  document.querySelector('.comments-loader').classList.add('visually-hidden');
+};
+
 getShowBigPicture();
+
+getCommentCount();
+getCommentsLoader();
