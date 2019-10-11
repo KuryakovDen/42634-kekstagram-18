@@ -1,5 +1,6 @@
 'use strict';
 
+var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
 var maxLikes = 200;
@@ -47,6 +48,8 @@ var getPhotoDescription = function (photosCount) {
 };
 
 var photoCollection = getPhotoDescription(countOfPhotos);
+var firstPhotoFull = getPhotoDescription(examplePhoto);
+console.log(firstPhotoFull);
 
 var createRandomPhoto = function (photos) {
 
@@ -101,28 +104,31 @@ var openFullPhoto = function () {
   };
 
   var getBigPictureAddress = function () {
-    bigPicture.querySelector('.big-picture__img');
+    return bigPicture.querySelector('.big-picture__img img');
   };
 
   var getBigPictureCountLikes = function () {
-    bigPicture.querySelector('.likes-count');
+    return bigPicture.querySelector('.likes-count');
   };
 
   var getBigPictureCountComments = function () {
-    bigPicture.querySelector('.comments-count');
+    return bigPicture.querySelector('.comments-count');
   };
 
   var getBigPictureCommentsList = function () {
-    bigPicture.querySelector('.social__comments');
+    return bigPicture.querySelector('.social__comments');
   };
 
   var getBigPictureDescription = function () {
-    bigPicture.querySelector('.social__caption');
+    return bigPicture.querySelector('.social__caption');
   };
+
+  getBigPictureAddress().src = 'img/logo-background-1.jpg';
 
   getShowBigPicture();
   //getCommentCount();
   //getCommentsLoader();
+
 
   var bigPictureCancel = function () {
     return bigPicture.querySelector('.big-picture__cancel');
