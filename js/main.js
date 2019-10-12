@@ -49,7 +49,7 @@ var getPhotoDescription = function (photosCount) {
 
 var photoCollection = getPhotoDescription(countOfPhotos);
 var firstPhotoFull = getPhotoDescription(examplePhoto);
-console.log(firstPhotoFull);
+console.log(firstPhotoFull[0]);
 
 var createRandomPhoto = function (photos) {
 
@@ -91,16 +91,24 @@ createRandomPhoto(photoCollection);
 var openFullPhoto = function () {
   var bigPicture = document.querySelector('.big-picture');
 
+  var getSocialComment = function () {
+    return document.querySelector('.social__comment');
+  };
+
+  var getSocialCommentsList = function () {
+    return document.querySelector('.social__comments');
+  };
+
   var getShowBigPicture = function () {
     return bigPicture.classList.remove('hidden');
   };
 
   var getCommentCount = function () {
-    return document.querySelector('.social__comment-count').classList.add('visually-hidden');
+    return document.querySelector('.social__comment-count') //.classList.add('visually-hidden');
   };
 
   var getCommentsLoader = function () {
-    return document.querySelector('.comments-loader').classList.add('visually-hidden');
+    return document.querySelector('.comments-loader') //.classList.add('visually-hidden');
   };
 
   var getBigPictureAddress = function () {
@@ -115,29 +123,19 @@ var openFullPhoto = function () {
     return bigPicture.querySelector('.comments-count');
   };
 
-  var getBigPictureCommentsList = function () {
-    return bigPicture.querySelector('.social__comments');
-  };
-
   var getBigPictureDescription = function () {
     return bigPicture.querySelector('.social__caption');
   };
 
-  getBigPictureAddress().src = 'img/logo-background-1.jpg';
-
   getShowBigPicture();
-  //getCommentCount();
-  //getCommentsLoader();
 
+  getBigPictureAddress().src = firstPhotoFull[0].url;
+  getBigPictureCountLikes().textContent = firstPhotoFull[0].likes;
+  //getSocialComment().textContent = firstPhotoFull[0].comment.message;
+  getBigPictureDescription().textContent = firstPhotoFull[0].description;
 
-  var bigPictureCancel = function () {
-    return bigPicture.querySelector('.big-picture__cancel');
-  };
-
-  bigPictureCancel().addEventListener('click', function () {
-    bigPicture.classList.add('hidden');
-  });
-
+  var newSocialComment = getSocialComment().cloneNode(true);
+  getSocialCommentsList().appendChild(newSocialComment);
 };
 
 openFullPhoto();
