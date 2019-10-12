@@ -49,7 +49,6 @@ var getPhotoDescription = function (photosCount) {
 
 var photoCollection = getPhotoDescription(countOfPhotos);
 var firstPhotoFull = getPhotoDescription(examplePhoto);
-console.log(firstPhotoFull[0]);
 
 var createRandomPhoto = function (photos) {
 
@@ -91,7 +90,7 @@ createRandomPhoto(photoCollection);
 var openFullPhoto = function () {
   var bigPicture = document.querySelector('.big-picture');
 
-  var getSocialComment = function () {
+  var getFirstSocialComment = function () {
     return document.querySelector('.social__comment');
   };
 
@@ -134,8 +133,28 @@ var openFullPhoto = function () {
   //getSocialComment().textContent = firstPhotoFull[0].comment.message;
   getBigPictureDescription().textContent = firstPhotoFull[0].description;
 
-  var newSocialComment = getSocialComment().cloneNode(true);
-  getSocialCommentsList().appendChild(newSocialComment);
+  var getNewSocialComment = function () {
+    var newSocialComment = getFirstSocialComment().cloneNode(true);
+    newSocialComment.classList.add('social__comment--generated');
+
+    var getSocialPicture = function () {
+      return newSocialComment.querySelector('.social__picture');
+    };
+
+    getSocialPicture().src = 'img/avatar-' + getRandomNumberLikes(1, 6) + '.svg';
+    getSocialPicture().alt = firstPhotoFull[0].author;
+
+    var getSocialCommentText = function () {
+      return newSocialComment.querySelector('.social__text');
+    };
+
+    getSocialCommentText().textContent = firstPhotoFull[0].comment.message;
+
+    console.log(newSocialComment);
+    getSocialCommentsList().appendChild(newSocialComment);
+  };
+
+  getNewSocialComment();
 };
 
 openFullPhoto();
