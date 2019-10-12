@@ -102,9 +102,9 @@ var openFullPhoto = function () {
     return bigPicture.classList.remove('hidden');
   };
 
-  var getBigPictureCountComments = function () {
+  /* var getBigPictureCountComments = function () {
     return bigPicture.querySelector('.comments-count');
-  };
+  };*/
 
   var getCommentCount = function () {
     return document.querySelector('.social__comment-count').classList.add('visually-hidden');
@@ -149,8 +149,6 @@ var openFullPhoto = function () {
     getSocialCommentText().textContent = firstPhotoFull[0].comment.message;
 
     getSocialCommentsList().appendChild(newSocialComment);
-
-    console.log(newSocialComment);
   };
 
   getNewSocialComment();
