@@ -107,7 +107,7 @@ var openFullPhoto = function () {
   };
 
   var getCommentCount = function () {
-    return document.querySelector('.social__comment-count'); // .classList.add('visually-hidden');
+    return document.querySelector('.social__comment-count').classList.add('visually-hidden');
   };
 
   var getCommentsLoader = function () {
@@ -145,13 +145,17 @@ var openFullPhoto = function () {
 
     getSocialPicture().src = firstPhotoFull[0].comment.avatar;
     getSocialPicture().alt = firstPhotoFull[0].comment.author;
+    /* getBigPictureCountComments().textContent = firstPhotoFull[0].comment;*/
     getSocialCommentText().textContent = firstPhotoFull[0].comment.message;
 
     getSocialCommentsList().appendChild(newSocialComment);
+
+    console.log(newSocialComment);
   };
 
   getNewSocialComment();
   getCommentsLoader();
+  getCommentCount();
 };
 
 openFullPhoto();
