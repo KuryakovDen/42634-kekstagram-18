@@ -94,6 +94,10 @@ var openFullPhoto = function () {
     return document.querySelector('.social__comment');
   };
 
+  var getAllSocialComments = function () {
+    return document.querySelectorAll('.social__comment');
+  };
+
   var getSocialCommentsList = function () {
     return document.querySelector('.social__comments');
   };
@@ -102,11 +106,11 @@ var openFullPhoto = function () {
     return bigPicture.classList.remove('hidden');
   };
 
-  /* var getBigPictureCountComments = function () {
+  var getBigPictureCountComments = function () {
     return bigPicture.querySelector('.comments-count');
-  };*/
+  };
 
-  var getCommentCount = function () {
+  var hideCommentCount = function () {
     return document.querySelector('.social__comment-count').classList.add('visually-hidden');
   };
 
@@ -145,17 +149,17 @@ var openFullPhoto = function () {
       return newSocialComment.querySelector('.social__text');
     };
 
+    getSocialCommentsList().appendChild(newSocialComment);
+
     socialPicture.src = firstPhotoFull.comment.avatar;
     socialPicture.alt = firstPhotoFull.comment.author;
-    /* getBigPictureCountComments().textContent = firstPhotoFull.comment;*/
+    getBigPictureCountComments().textContent = getAllSocialComments().length;
     getSocialCommentText().textContent = firstPhotoFull.comment.message;
-
-    getSocialCommentsList().appendChild(newSocialComment);
   };
 
   getNewSocialComment();
   hideCommentsLoader();
-  // getCommentCount();
+  hideCommentCount();
 };
 
 openFullPhoto();
