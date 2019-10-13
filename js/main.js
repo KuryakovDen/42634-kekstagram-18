@@ -139,12 +139,14 @@ var openFullPhoto = function () {
       return newSocialComment.querySelector('.social__picture');
     };
 
+    var socialPicture = getSocialPicture();
+
     var getSocialCommentText = function () {
       return newSocialComment.querySelector('.social__text');
     };
 
-    getSocialPicture().src = firstPhotoFull.comment.avatar;
-    getSocialPicture().alt = firstPhotoFull.comment.author;
+    socialPicture.src = firstPhotoFull.comment.avatar;
+    socialPicture.alt = firstPhotoFull.comment.author;
     /* getBigPictureCountComments().textContent = firstPhotoFull.comment;*/
     getSocialCommentText().textContent = firstPhotoFull.comment.message;
 
@@ -153,7 +155,7 @@ var openFullPhoto = function () {
 
   getNewSocialComment();
   hideCommentsLoader();
-  getCommentCount();
+  // getCommentCount();
 };
 
 openFullPhoto();
