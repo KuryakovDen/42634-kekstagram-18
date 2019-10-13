@@ -48,7 +48,7 @@ var getPhotoDescription = function (photosCount) {
 };
 
 var photoCollection = getPhotoDescription(countOfPhotos);
-var firstPhotoFull = getPhotoDescription(examplePhoto);
+var firstPhotoFull = getPhotoDescription(examplePhoto)[0];
 
 var createRandomPhoto = function (photos) {
 
@@ -98,7 +98,7 @@ var openFullPhoto = function () {
     return document.querySelector('.social__comments');
   };
 
-  var getShowBigPicture = function () {
+  var showBigPicture = function () {
     return bigPicture.classList.remove('hidden');
   };
 
@@ -110,7 +110,7 @@ var openFullPhoto = function () {
     return document.querySelector('.social__comment-count').classList.add('visually-hidden');
   };
 
-  var getCommentsLoader = function () {
+  var hideCommentsLoader = function () {
     return document.querySelector('.comments-loader').classList.add('visually-hidden');
   };
 
@@ -126,11 +126,11 @@ var openFullPhoto = function () {
     return bigPicture.querySelector('.social__caption');
   };
 
-  getShowBigPicture();
+  showBigPicture();
 
-  getBigPictureAddress().src = firstPhotoFull[0].url;
-  getBigPictureCountLikes().textContent = firstPhotoFull[0].likes;
-  getBigPictureDescription().textContent = firstPhotoFull[0].description;
+  getBigPictureAddress().src = firstPhotoFull.url;
+  getBigPictureCountLikes().textContent = firstPhotoFull.likes;
+  getBigPictureDescription().textContent = firstPhotoFull.description;
 
   var getNewSocialComment = function () {
     var newSocialComment = getFirstSocialComment().cloneNode(true);
@@ -143,16 +143,16 @@ var openFullPhoto = function () {
       return newSocialComment.querySelector('.social__text');
     };
 
-    getSocialPicture().src = firstPhotoFull[0].comment.avatar;
-    getSocialPicture().alt = firstPhotoFull[0].comment.author;
-    /* getBigPictureCountComments().textContent = firstPhotoFull[0].comment;*/
-    getSocialCommentText().textContent = firstPhotoFull[0].comment.message;
+    getSocialPicture().src = firstPhotoFull.comment.avatar;
+    getSocialPicture().alt = firstPhotoFull.comment.author;
+    /* getBigPictureCountComments().textContent = firstPhotoFull.comment;*/
+    getSocialCommentText().textContent = firstPhotoFull.comment.message;
 
     getSocialCommentsList().appendChild(newSocialComment);
   };
 
   getNewSocialComment();
-  getCommentsLoader();
+  hideCommentsLoader();
   getCommentCount();
 };
 
