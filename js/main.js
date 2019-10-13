@@ -1,5 +1,6 @@
 'use strict';
 
+var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
 var maxLikes = 200;
@@ -47,6 +48,7 @@ var getPhotoDescription = function (photosCount) {
 };
 
 var photoCollection = getPhotoDescription(countOfPhotos);
+var firstPhotoFull = getPhotoDescription(examplePhoto)[0];
 
 var createRandomPhoto = function (photos) {
 
@@ -84,3 +86,81 @@ var createRandomPhoto = function (photos) {
 };
 
 createRandomPhoto(photoCollection);
+
+var openFullPhoto = function () {
+  var bigPicture = document.querySelector('.big-picture');
+
+  var getFirstSocialComment = function () {
+    return document.querySelector('.social__comment');
+  };
+
+  var getAllSocialComments = function () {
+    return document.querySelectorAll('.social__comment');
+  };
+
+  var getSocialCommentsList = function () {
+    return document.querySelector('.social__comments');
+  };
+
+  var showBigPicture = function () {
+    return bigPicture.classList.remove('hidden');
+  };
+
+  var getBigPictureCountComments = function () {
+    return bigPicture.querySelector('.comments-count');
+  };
+
+  var hideCommentCount = function () {
+    return document.querySelector('.social__comment-count').classList.add('visually-hidden');
+  };
+
+  var hideCommentsLoader = function () {
+    return document.querySelector('.comments-loader').classList.add('visually-hidden');
+  };
+
+  var getBigPictureAddress = function () {
+    return bigPicture.querySelector('.big-picture__img img');
+  };
+
+  var getBigPictureCountLikes = function () {
+    return bigPicture.querySelector('.likes-count');
+  };
+
+  var getBigPictureDescription = function () {
+    return bigPicture.querySelector('.social__caption');
+  };
+
+  showBigPicture();
+
+  getBigPictureAddress().src = firstPhotoFull.url;
+  getBigPictureCountLikes().textContent = firstPhotoFull.likes;
+  getBigPictureDescription().textContent = firstPhotoFull.description;
+
+  var getNewSocialComment = function () {
+    var newSocialComment = getFirstSocialComment().cloneNode(true);
+
+    var getSocialPicture = function () {
+      return newSocialComment.querySelector('.social__picture');
+    };
+
+    var socialPicture = getSocialPicture();
+
+    var getSocialCommentText = function () {
+      return newSocialComment.querySelector('.social__text');
+    };
+
+    getSocialCommentsList().appendChild(newSocialComment);
+
+    socialPicture.src = firstPhotoFull.comment.avatar;
+    socialPicture.alt = firstPhotoFull.comment.author;
+    getBigPictureCountComments().textContent = getAllSocialComments().length;
+    getSocialCommentText().textContent = firstPhotoFull.comment.message;
+  };
+
+  getNewSocialComment();
+  hideCommentsLoader();
+  hideCommentCount();
+};
+
+openFullPhoto();
+
