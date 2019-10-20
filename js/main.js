@@ -172,18 +172,18 @@ var openFullPhoto = function () {
     return document.querySelector('.big-picture__cancel');
   };
 
-  var clickPopupCancelHandler = function () {
+  var onClickPopupCancel = function () {
     bigPicture.classList.add('visually-hidden');
   };
 
-  getBigPictureCancel().addEventListener('click', clickPopupCancelHandler);
+  getBigPictureCancel().addEventListener('click', onClickPopupCancel);
 };
 
 /* var closePicturePopup = function () {
   return bigPicture.classList.add('hidden');
 };
 
-var popupEscHandler = function (evt) {
+var onPressEscPopup = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closePicturePopup();
   }
@@ -192,7 +192,7 @@ var popupEscHandler = function (evt) {
 var openPicturePopup = function () {
   bigPicture.classList.remove('hidden');
 
-  document.addEventListener('keydown', popupEscHandler);
+  document.addEventListener('keydown', onPressEscPopup);
 };*/
 
 var getNewUploadPhoto = function () {
@@ -212,12 +212,12 @@ getEditPictureCancel().addEventListener('click', function () {
   getFormEditPicture().classList.add('hidden');
 });
 
-var changeUploadFileHandler = function (evt) {
+var onClickUploadFile = function (evt) {
   evt.preventDefault();
   getFormEditPicture().classList.remove('hidden');
 };
 
-getNewUploadPhoto().addEventListener('change', changeUploadFileHandler);
+getNewUploadPhoto().addEventListener('change', onClickUploadFile);
 
 // Ползунок слайдера
 
@@ -225,11 +225,11 @@ var getSliderPin = function () {
   return document.querySelector('.effect-level__pin');
 };
 
-var dragSaturationLevelHandler = function () {
+var onDragSaturationLevel = function () {
 
 };
 
-getSliderPin().addEventListener('mouseup', dragSaturationLevelHandler);
+getSliderPin().addEventListener('mouseup', onDragSaturationLevel);
 
 // Изменение масштаба картинки
 
@@ -256,8 +256,8 @@ var renderScale = function (newScale) {
 
 var init = function () {
   renderScale(SCALE);
-  getSmallController().addEventListener('click', clickSmallerControlHandler);
-  getBigController().addEventListener('click', clickBiggerControlHandler);
+  getSmallController().addEventListener('click', onClickMinusControl);
+  getBigController().addEventListener('click', onClickPlusControl);
 };
 
 var updateScale = function (newScale) {
@@ -265,7 +265,7 @@ var updateScale = function (newScale) {
   renderScale(newScale);
 };
 
-var clickSmallerControlHandler = function () {
+var onClickMinusControl = function () {
   if (SCALE === 25) {
     return;
   }
@@ -274,8 +274,8 @@ var clickSmallerControlHandler = function () {
   getUploadPreview().style.transform = 'scale(' + SCALE/100 + ')';
 };
 
-var clickBiggerControlHandler = function () {
-  if (SCALE < 25 || SCALE >= 100) {
+var onClickPlusControl = function () {
+  if (SCALE < 25 || SCALE > 100) {
     return;
   }
   SCALE = SCALE + controllerStep;
@@ -289,21 +289,21 @@ var getAllPhotoEfects = function () {
   return getFormEditPicture().querySelector('.effects__radio:checked');
 };
 
-var tooglePhotoEffectHandler = function () {
+var onClickPhotoEffect = function () {
 
 };
 
-getAllPhotoEfects().addEventListener('click', tooglePhotoEffectHandler);
+getAllPhotoEfects().addEventListener('click', onClickPhotoEffect);
 
 // Полуение строки хэштегов
 
-var getHashtagsPicture = function () {
+var getPictureHashtags = function () {
   return getFormEditPicture().querySelector('.text__hashtags');
 };
 
 
-var enterHashtagsHandler = function () {
-  var hashtags = getHashtagsPicture().value.split(' ');
+var onEnterHashtags = function () {
+  var hashtags = getPictureHashtags().value.split(' ');
   var message = '';
 
   if (hashtags.length > 5) {
@@ -311,11 +311,11 @@ var enterHashtagsHandler = function () {
   }
 
   if (message !== '') {
-    return getHashtagsPicture().setCustomValidity(message);
+    return getPictureHashtags().setCustomValidity(message);
   } else {
-    return getHashtagsPicture().setCustomValidity(message);
+    return getPictureHashtags().setCustomValidity(message);
   }
 };
 
-getHashtagsPicture().addEventListener('input', enterHashtagsHandler);
+getPictureHashtags().addEventListener('input', onEnterHashtags);
 init();
