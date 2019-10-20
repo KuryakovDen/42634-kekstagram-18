@@ -201,7 +201,6 @@ var getNewUploadPhoto = function () {
   return document.querySelector('#upload-file');
 };
 
-
 var getFormEditPicture = function () {
   return document.querySelector('.img-upload__overlay');
 };
@@ -221,17 +220,41 @@ var onClickUploadFile = function (evt) {
 
 getNewUploadPhoto().addEventListener('change', onClickUploadFile);
 
-// Ползунок слайдера
+// Наложение эффекта на изображение
 
-var getSliderPin = function () {
+var getUploadPreviewImage = function () {
+  return getFormEditPicture().querySelector('.img-upload__preview img');
+};
+
+var setPhotoFilter = function (effect) {
+  var getPhotoEffect = function () {
+    return getFormEditPicture().querySelector('#effect-' + effect + '');
+  };
+
+  var onClickFilterEffect = function () {
+    getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
+  };
+
+  return getPhotoEffect().addEventListener('click', onClickFilterEffect);
+};
+
+for (var i = 0; i < filters.length; i++) {
+  setPhotoFilter(filters[i]);
+}
+
+/* var getSliderPin = function () {
   return document.querySelector('.effect-level__pin');
 };
 
-var onDragSaturationLevel = function () {
+var getEffectLevelPhotoValue = function () {
+  return document.querySelector('.effect-level__value');
+};*/
 
-};
+/* var onDragSaturationLevel = function () {
 
-getSliderPin().addEventListener('mouseup', onDragSaturationLevel);
+};*/
+
+// getSliderPin().addEventListener('mouseup', onDragSaturationLevel);
 
 // Изменение масштаба картинки
 
@@ -286,28 +309,6 @@ var onClickPlusControl = function () {
   getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
 };
 
-// Наложение эффекта на изображение
-
-var getUploadPreviewImage = function () {
-  return getFormEditPicture().querySelector('.img-upload__preview img');
-};
-
-var setPhotoFilter = function (effect) {
-  var getPhotoEffect = function () {
-    return getFormEditPicture().querySelector('#effect-' + effect + '');
-  };
-
-  var onClickFilterEffect = function () {
-    getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
-  };
-
-  return getPhotoEffect().addEventListener('click', onClickFilterEffect);
-};
-
-for (var i = 0; i < filters.length; i++) {
-  setPhotoFilter(filters[i]);
-}
-
 // Полуение строки хэштегов
 
 var getPictureHashtags = function () {
@@ -323,22 +324,18 @@ var onEnterHashtags = function () {
   }
 
   for (var j = 0; j < hashtags.length; j++) {
+    var hashtag = hashtags[j];
+
     if (!hashtags[j].startsWith('#')) {
       message = 'Введите хэштег, начиная с решётки!';
     } else if (hashtags[j].length > 20) {
       message = 'Ваш хэштег слишком большой длины!';
-    } /* else if () {
+    } else if (hashtags.indexOf(hashtag.toLowerCase()) !== j) {
       message = 'Такой хэштег уже существует!';
-    }**/
-
-    /* else if (hashtags[i].toLowerCase().indexOf(hashtags[i].toLowerCase()) !== -1) {
-      message = 'Такой хэштег уже существует!';
-    }*/
-
-    // console.log(hashtags.indexOf(hashtags[i].toLowerCase()));
+    } else {
+      message = '';
+    }
   }
-
-  // console.log(hashtags);
 
   if (message !== '') {
     return getPictureHashtags().setCustomValidity(message);
