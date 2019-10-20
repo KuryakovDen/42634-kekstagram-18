@@ -1,7 +1,5 @@
 'use strict';
 
-var NUMBER_SYSTEM = 10;
-
 var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
@@ -11,6 +9,8 @@ var SCALE = 100;
 
 /* var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;*/
+
+var filters = ['chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
 var comments = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -179,6 +179,8 @@ var openFullPhoto = function () {
   getBigPictureCancel().addEventListener('click', onClickPopupCancel);
 };
 
+openFullPhoto();
+
 /* var closePicturePopup = function () {
   return bigPicture.classList.add('hidden');
 };
@@ -260,10 +262,10 @@ var init = function () {
   getBigController().addEventListener('click', onClickPlusControl);
 };
 
-var updateScale = function (newScale) {
-  scale = newScale;
+/* var updateScale = function (newScale) {
+  SCALE = newScale;
   renderScale(newScale);
-};
+};*/
 
 var onClickMinusControl = function () {
   if (SCALE === 25) {
@@ -271,36 +273,46 @@ var onClickMinusControl = function () {
   }
   SCALE = SCALE - controllerStep;
   renderScale(SCALE);
-  getUploadPreview().style.transform = 'scale(' + SCALE/100 + ')';
+  getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
 };
 
 var onClickPlusControl = function () {
-  if (SCALE < 25 || SCALE > 100) {
+  if (SCALE < 25 || SCALE >= 100) {
     return;
   }
+
   SCALE = SCALE + controllerStep;
   renderScale(SCALE);
-  getUploadPreview().style.transform = 'scale(' + SCALE/100 + ')';
+  getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
 };
 
 // Наложение эффекта на изображение
 
-var getAllPhotoEfects = function () {
-  return getFormEditPicture().querySelector('.effects__radio:checked');
+var getUploadPreviewImage = function () {
+  return getFormEditPicture().querySelector('.img-upload__preview img');
 };
 
-var onClickPhotoEffect = function () {
+var setPhotoFilter = function (effect) {
+  var getPhotoEffect = function () {
+    return getFormEditPicture().querySelector('#effect-' + effect + '');
+  };
 
+  var onClickFilterEffect = function () {
+    getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
+  };
+
+  return getPhotoEffect().addEventListener('click', onClickFilterEffect);
 };
 
-getAllPhotoEfects().addEventListener('click', onClickPhotoEffect);
+for (var i = 0; i < filters.length; i++) {
+  setPhotoFilter(filters[i]);
+}
 
 // Полуение строки хэштегов
 
 var getPictureHashtags = function () {
   return getFormEditPicture().querySelector('.text__hashtags');
 };
-
 
 var onEnterHashtags = function () {
   var hashtags = getPictureHashtags().value.split(' ');
@@ -310,6 +322,24 @@ var onEnterHashtags = function () {
     message = 'Много хэштегов';
   }
 
+  for (var j = 0; j < hashtags.length; j++) {
+    if (!hashtags[j].startsWith('#')) {
+      message = 'Введите хэштег, начиная с решётки!';
+    } else if (hashtags[j].length > 20) {
+      message = 'Ваш хэштег слишком большой длины!';
+    } /* else if () {
+      message = 'Такой хэштег уже существует!';
+    }**/
+
+    /* else if (hashtags[i].toLowerCase().indexOf(hashtags[i].toLowerCase()) !== -1) {
+      message = 'Такой хэштег уже существует!';
+    }*/
+
+    // console.log(hashtags.indexOf(hashtags[i].toLowerCase()));
+  }
+
+  // console.log(hashtags);
+
   if (message !== '') {
     return getPictureHashtags().setCustomValidity(message);
   } else {
@@ -317,5 +347,5 @@ var onEnterHashtags = function () {
   }
 };
 
-getPictureHashtags().addEventListener('input', onEnterHashtags);
+getPictureHashtags().addEventListener('change', onEnterHashtags);
 init();
