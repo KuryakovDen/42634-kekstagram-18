@@ -1,9 +1,13 @@
 'use strict';
 
+var NUMBER_SYSTEM = 10;
+
 var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
 var maxLikes = 200;
+var controllerStep = 25;
+var SCALE = 100;
 
 /* var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;*/
@@ -237,23 +241,59 @@ var getBigController = function () {
   return getFormEditPicture().querySelector('.scale__control--bigger');
 };
 
-var clickSmallerControlHandler = function () {
-  return console.log('getSmallController().value');
-};
-
-var clickBiggerControlHandler = function () {
-  return console.log('getBigController().value');
+var getUploadPreview = function () {
+  return getFormEditPicture().querySelector('.img-upload__preview');
 };
 
 var getControllerValue = function () {
   return getFormEditPicture().querySelector('.scale__control--value');
 };
 
-console.log(getControllerValue().value);
+var renderScale = function (newScale) {
+  var scaleControl = getControllerValue();
+  scaleControl.value = newScale + '%';
+};
 
-getSmallController().addEventListener('click', clickSmallerControlHandler);
-getBigController().addEventListener('click', clickBiggerControlHandler);
+var init = function () {
+  renderScale(SCALE);
+  getSmallController().addEventListener('click', clickSmallerControlHandler);
+  getBigController().addEventListener('click', clickBiggerControlHandler);
+};
 
+var updateScale = function (newScale) {
+  scale = newScale;
+  renderScale(newScale);
+};
+
+var clickSmallerControlHandler = function () {
+  if (SCALE === 25) {
+    return;
+  }
+  SCALE = SCALE - controllerStep;
+  renderScale(SCALE);
+  getUploadPreview().style.transform = 'scale(' + SCALE/100 + ')';
+};
+
+var clickBiggerControlHandler = function () {
+  if (SCALE < 25 || SCALE >= 100) {
+    return;
+  }
+  SCALE = SCALE + controllerStep;
+  renderScale(SCALE);
+  getUploadPreview().style.transform = 'scale(' + SCALE/100 + ')';
+};
+
+// Наложение эффекта на изображение
+
+var getAllPhotoEfects = function () {
+  return getFormEditPicture().querySelector('.effects__radio:checked');
+};
+
+var tooglePhotoEffectHandler = function () {
+
+};
+
+getAllPhotoEfects().addEventListener('click', tooglePhotoEffectHandler);
 
 // Полуение строки хэштегов
 
@@ -261,4 +301,21 @@ var getHashtagsPicture = function () {
   return getFormEditPicture().querySelector('.text__hashtags');
 };
 
-console.log(getHashtagsPicture());
+
+var enterHashtagsHandler = function () {
+  var hashtags = getHashtagsPicture().value.split(' ');
+  var message = '';
+
+  if (hashtags.length > 5) {
+    message = 'Много хэштегов';
+  }
+
+  if (message !== '') {
+    return getHashtagsPicture().setCustomValidity(message);
+  } else {
+    return getHashtagsPicture().setCustomValidity(message);
+  }
+};
+
+getHashtagsPicture().addEventListener('input', enterHashtagsHandler);
+init();
