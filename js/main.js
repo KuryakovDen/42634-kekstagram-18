@@ -10,7 +10,7 @@ var SCALE = 100;
 /* var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;*/
 
-var filters = ['chrome', 'sepia', 'marvin', 'phobos', 'heat'];
+var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
 var comments = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -226,14 +226,30 @@ var getUploadPreviewImage = function () {
   return getFormEditPicture().querySelector('.img-upload__preview img');
 };
 
+var getEffectFilterSlider = function () {
+  return getFormEditPicture().querySelector('.effect-level');
+};
+
 var setPhotoFilter = function (effect) {
+  if (effect !== 'none') {
+    getEffectFilterSlider().classList.remove('visually-hidden');
+  }
+
   var getPhotoEffect = function () {
     return getFormEditPicture().querySelector('#effect-' + effect + '');
   };
 
   var onClickFilterEffect = function () {
     getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
+
+    if (effect === 'none') {
+      getEffectFilterSlider().classList.add('visually-hidden');
+    } else {
+      getEffectFilterSlider().classList.remove('visually-hidden');
+    }
   };
+
+
 
   return getPhotoEffect().addEventListener('click', onClickFilterEffect);
 };
