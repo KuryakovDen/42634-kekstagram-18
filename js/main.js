@@ -249,8 +249,6 @@ var setPhotoFilter = function (effect) {
     }
   };
 
-
-
   return getPhotoEffect().addEventListener('click', onClickFilterEffect);
 };
 
@@ -258,19 +256,69 @@ for (var i = 0; i < filters.length; i++) {
   setPhotoFilter(filters[i]);
 }
 
-/* var getSliderPin = function () {
-  return document.querySelector('.effect-level__pin');
+// Интенсивность эффекта
+
+var getPhotoUploadEffects = function () {
+  return document.querySelector('.img-upload__effects');
 };
 
 var getEffectLevelPhotoValue = function () {
   return document.querySelector('.effect-level__value');
-};*/
+};
+
+getEffectLevelPhotoValue().value = 20;
+
+var getSliderPin = function () {
+  return document.querySelector('.effect-level__pin');
+};
+
+var getCurrentPhotoFilter = function () {
+  return getPhotoUploadEffects().querySelector('input:checked');
+};
+
+var onMouseUpPin = function () {
+  if (getCurrentPhotoFilter().value === 'chrome') {
+    getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
+  }
+
+  if (getCurrentPhotoFilter().value === 'sepia') {
+    getUploadPreview().style.filter = 'sepia(' + getEffectLevelPhotoValue().value / 100 + ')';
+  }
+
+  if (getCurrentPhotoFilter().value === 'marvin') {
+    getUploadPreview().style.filter = 'invert(' + getEffectLevelPhotoValue().value + '%)';
+  }
+
+  if (getCurrentPhotoFilter().value === 'phobos') {
+    if (getEffectLevelPhotoValue().value === 0) {
+      getUploadPreview().style.filter = 'blur(0)';
+    } else if (getEffectLevelPhotoValue().value > 0 && getEffectLevelPhotoValue().value <= 0.33) {
+      getUploadPreview().style.filter = 'blur(1px)';
+    } else if (getEffectLevelPhotoValue().value > 0.33 && getEffectLevelPhotoValue().value <= 0.66) {
+      getUploadPreview().style.filter = 'blur(2px)';
+    } else {
+      getUploadPreview().style.filter = 'blur(3px)';
+    }
+  }
+
+  if (getCurrentPhotoFilter().value === 'heat') {
+    if (getEffectLevelPhotoValue().value === 0) {
+      getUploadPreview().style.filter = 'brightness(1)';
+    } else if (getEffectLevelPhotoValue().value <= 50) {
+      getUploadPreview().style.filter = 'brightness(2)';
+    } else {
+      getUploadPreview().style.filter = 'brightness(3)';
+    }
+  }
+};
+
+getSliderPin().addEventListener('mouseup', onMouseUpPin);
 
 /* var onDragSaturationLevel = function () {
 
-};*/
+};
 
-// getSliderPin().addEventListener('mouseup', onDragSaturationLevel);
+getSliderPin().addEventListener('mouseup', onDragSaturationLevel); */
 
 // Изменение масштаба картинки
 
