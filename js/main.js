@@ -4,6 +4,13 @@ var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
 var maxLikes = 200;
+var controllerStep = 25;
+var SCALE = 100;
+
+/* var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;*/
+
+var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
 var comments = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -29,10 +36,10 @@ var getRandomNumberLikes = function (minRangeLikes, maxRangeLikes) {
 };
 
 var getPhotoDescription = function (photosCount) {
-  var randomPhotos = [];
+  var showFullPosts = [];
 
   for (var i = 1; i <= photosCount; i++) {
-    randomPhotos.push({
+    showFullPosts.push({
       url: 'photos/' + i + '.jpg',
       description: 'Описание фотографии',
       likes: getRandomNumberLikes(minLikes, maxLikes),
@@ -44,13 +51,13 @@ var getPhotoDescription = function (photosCount) {
     });
   }
 
-  return randomPhotos;
+  return showFullPosts;
 };
 
 var photoCollection = getPhotoDescription(countOfPhotos);
 var firstPhotoFull = getPhotoDescription(examplePhoto)[0];
 
-var createRandomPhoto = function (photos) {
+var createshowFullPost = function (photos) {
 
   var photoTemplate = function () {
     return document.querySelector('#picture').content.querySelector('.picture');
@@ -85,9 +92,13 @@ var createRandomPhoto = function (photos) {
   return photos;
 };
 
-createRandomPhoto(photoCollection);
+createshowFullPost(photoCollection);
 
-var openFullPhoto = function () {
+var showFullPost = function () {
+  return document.querySelector('.picture');
+};
+
+var onClickShowFullPhoto = function () {
   var bigPicture = document.querySelector('.big-picture');
 
   var getFirstSocialComment = function () {
@@ -160,7 +171,238 @@ var openFullPhoto = function () {
   getNewSocialComment();
   hideCommentsLoader();
   hideCommentCount();
+
+  var getBigPictureCancel = function () {
+    return document.querySelector('.big-picture__cancel');
+  };
+
+  var onClickPopupCancel = function () {
+    bigPicture.classList.add('visually-hidden');
+  };
+
+  getBigPictureCancel().addEventListener('click', onClickPopupCancel);
 };
 
-openFullPhoto();
+showFullPost().addEventListener('click', onClickShowFullPhoto);
 
+/* var closePicturePopup = function () {
+  return bigPicture.classList.add('hidden');
+};
+
+var onPressEscPopup = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePicturePopup();
+  }
+};
+
+var openPicturePopup = function () {
+  bigPicture.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPressEscPopup);
+};*/
+
+var getNewUploadPhoto = function () {
+  return document.querySelector('#upload-file');
+};
+
+var getFormEditPicture = function () {
+  return document.querySelector('.img-upload__overlay');
+};
+
+var getEditPictureCancel = function () {
+  return getFormEditPicture().querySelector('.img-upload__cancel');
+};
+
+getEditPictureCancel().addEventListener('click', function () {
+  getFormEditPicture().classList.add('hidden');
+});
+
+var onClickUploadFile = function (evt) {
+  evt.preventDefault();
+  getFormEditPicture().classList.remove('hidden');
+};
+
+getNewUploadPhoto().addEventListener('change', onClickUploadFile);
+
+// Наложение эффекта на изображение
+
+var getUploadPreviewImage = function () {
+  return getFormEditPicture().querySelector('.img-upload__preview img');
+};
+
+var getEffectFilterSlider = function () {
+  return getFormEditPicture().querySelector('.effect-level');
+};
+
+var setPhotoFilter = function (effect) {
+  if (effect !== 'none') {
+    getEffectFilterSlider().classList.remove('visually-hidden');
+  }
+
+  var getPhotoEffect = function () {
+    return getFormEditPicture().querySelector('#effect-' + effect + '');
+  };
+
+  var onClickFilterEffect = function () {
+    getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
+
+    if (effect === 'none') {
+      getEffectFilterSlider().classList.add('visually-hidden');
+    } else {
+      getEffectFilterSlider().classList.remove('visually-hidden');
+    }
+  };
+
+  return getPhotoEffect().addEventListener('click', onClickFilterEffect);
+};
+
+for (var i = 0; i < filters.length; i++) {
+  setPhotoFilter(filters[i]);
+}
+
+// Интенсивность эффекта
+
+var getPhotoUploadEffects = function () {
+  return document.querySelector('.img-upload__effects');
+};
+
+var getEffectLevelPhotoValue = function () {
+  return document.querySelector('.effect-level__value');
+};
+
+var getSliderPin = function () {
+  return document.querySelector('.effect-level__pin');
+};
+
+var getCurrentPhotoFilter = function () {
+  return getPhotoUploadEffects().querySelector('input:checked');
+};
+
+var onMouseUpPin = function () {
+  getEffectLevelPhotoValue().value = 20;
+
+  if (getCurrentPhotoFilter().value === 'chrome') {
+    getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
+  }
+
+  if (getCurrentPhotoFilter().value === 'sepia') {
+    getUploadPreview().style.filter = 'sepia(' + getEffectLevelPhotoValue().value / 100 + ')';
+  }
+
+  if (getCurrentPhotoFilter().value === 'marvin') {
+    getUploadPreview().style.filter = 'invert(' + getEffectLevelPhotoValue().value + '%)';
+  }
+
+  if (getCurrentPhotoFilter().value === 'phobos') {
+    if (getEffectLevelPhotoValue().value === 0) {
+      getUploadPreview().style.filter = 'blur(0)';
+    } else if (getEffectLevelPhotoValue().value > 0 && getEffectLevelPhotoValue().value <= 0.33) {
+      getUploadPreview().style.filter = 'blur(1px)';
+    } else if (getEffectLevelPhotoValue().value > 0.33 && getEffectLevelPhotoValue().value <= 0.66) {
+      getUploadPreview().style.filter = 'blur(2px)';
+    } else {
+      getUploadPreview().style.filter = 'blur(3px)';
+    }
+  }
+
+  if (getCurrentPhotoFilter().value === 'heat') {
+    if (getEffectLevelPhotoValue().value === 0) {
+      getUploadPreview().style.filter = 'brightness(1)';
+    } else if (getEffectLevelPhotoValue().value <= 50) {
+      getUploadPreview().style.filter = 'brightness(2)';
+    } else {
+      getUploadPreview().style.filter = 'brightness(3)';
+    }
+  }
+};
+
+getSliderPin().addEventListener('mouseup', onMouseUpPin);
+
+// Изменение масштаба картинки
+
+var getSmallController = function () {
+  return getFormEditPicture().querySelector('.scale__control--smaller');
+};
+
+var getBigController = function () {
+  return getFormEditPicture().querySelector('.scale__control--bigger');
+};
+
+var getUploadPreview = function () {
+  return getFormEditPicture().querySelector('.img-upload__preview');
+};
+
+var getControllerValue = function () {
+  return getFormEditPicture().querySelector('.scale__control--value');
+};
+
+var renderScale = function (newScale) {
+  var scaleControl = getControllerValue();
+  scaleControl.value = newScale + '%';
+};
+
+var init = function () {
+  renderScale(SCALE);
+  getSmallController().addEventListener('click', onClickMinusControl);
+  getBigController().addEventListener('click', onClickPlusControl);
+};
+
+/* var updateScale = function (newScale) {
+  SCALE = newScale;
+  renderScale(newScale);
+};*/
+
+var onClickMinusControl = function () {
+  if (SCALE === 25) {
+    return;
+  }
+  SCALE = SCALE - controllerStep;
+  renderScale(SCALE);
+  getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
+};
+
+var onClickPlusControl = function () {
+  if (SCALE < 25 || SCALE >= 100) {
+    return;
+  }
+
+  SCALE = SCALE + controllerStep;
+  renderScale(SCALE);
+  getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
+};
+
+// Полуение строки хэштегов
+
+var getPictureHashtags = function () {
+  return getFormEditPicture().querySelector('.text__hashtags');
+};
+
+var onEnterHashtags = function () {
+  var hashtags = getPictureHashtags().value.split(' ');
+  var message = '';
+
+  for (var j = 0; j < hashtags.length; j++) {
+    var hashtag = hashtags[j];
+
+    if (!hashtags[j].startsWith('#')) {
+      message = 'Введите хэштег, начиная с решётки!';
+    } else if (hashtags[j].length > 20) {
+      message = 'Ваш хэштег слишком большой длины!';
+    } else if (hashtags.indexOf(hashtag.toLowerCase()) !== j) {
+      message = 'Такой хэштег уже существует!';
+    } else if (hashtags.length > 5) {
+      message = 'Слишком много хэштегов!';
+    } else {
+      message = '';
+    }
+  }
+
+  if (message !== '') {
+    return getPictureHashtags().setCustomValidity(message);
+  } else {
+    return getPictureHashtags().setCustomValidity(message);
+  }
+};
+
+getPictureHashtags().addEventListener('change', onEnterHashtags);
+init();
