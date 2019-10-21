@@ -94,7 +94,11 @@ var createRandomPhoto = function (photos) {
 
 createRandomPhoto(photoCollection);
 
-var openFullPhoto = function () {
+var randomPhoto = function () {
+  return document.querySelector('.picture');
+};
+
+var onClickShowFullPhoto = function () {
   var bigPicture = document.querySelector('.big-picture');
 
   var getFirstSocialComment = function () {
@@ -179,7 +183,7 @@ var openFullPhoto = function () {
   getBigPictureCancel().addEventListener('click', onClickPopupCancel);
 };
 
-openFullPhoto();
+randomPhoto().addEventListener('click', onClickShowFullPhoto)
 
 /* var closePicturePopup = function () {
   return bigPicture.classList.add('hidden');
@@ -266,8 +270,6 @@ var getEffectLevelPhotoValue = function () {
   return document.querySelector('.effect-level__value');
 };
 
-getEffectLevelPhotoValue().value = 20;
-
 var getSliderPin = function () {
   return document.querySelector('.effect-level__pin');
 };
@@ -277,6 +279,8 @@ var getCurrentPhotoFilter = function () {
 };
 
 var onMouseUpPin = function () {
+  getEffectLevelPhotoValue().value = 20;
+
   if (getCurrentPhotoFilter().value === 'chrome') {
     getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
   }
@@ -313,12 +317,6 @@ var onMouseUpPin = function () {
 };
 
 getSliderPin().addEventListener('mouseup', onMouseUpPin);
-
-/* var onDragSaturationLevel = function () {
-
-};
-
-getSliderPin().addEventListener('mouseup', onDragSaturationLevel); */
 
 // Изменение масштаба картинки
 
