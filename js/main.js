@@ -36,10 +36,10 @@ var getRandomNumberLikes = function (minRangeLikes, maxRangeLikes) {
 };
 
 var getPhotoDescription = function (photosCount) {
-  var randomPhotos = [];
+  var showFullPosts = [];
 
   for (var i = 1; i <= photosCount; i++) {
-    randomPhotos.push({
+    showFullPosts.push({
       url: 'photos/' + i + '.jpg',
       description: 'Описание фотографии',
       likes: getRandomNumberLikes(minLikes, maxLikes),
@@ -51,13 +51,13 @@ var getPhotoDescription = function (photosCount) {
     });
   }
 
-  return randomPhotos;
+  return showFullPosts;
 };
 
 var photoCollection = getPhotoDescription(countOfPhotos);
 var firstPhotoFull = getPhotoDescription(examplePhoto)[0];
 
-var createRandomPhoto = function (photos) {
+var createshowFullPost = function (photos) {
 
   var photoTemplate = function () {
     return document.querySelector('#picture').content.querySelector('.picture');
@@ -92,9 +92,9 @@ var createRandomPhoto = function (photos) {
   return photos;
 };
 
-createRandomPhoto(photoCollection);
+createshowFullPost(photoCollection);
 
-var randomPhoto = function () {
+var showFullPost = function () {
   return document.querySelector('.picture');
 };
 
@@ -183,7 +183,7 @@ var onClickShowFullPhoto = function () {
   getBigPictureCancel().addEventListener('click', onClickPopupCancel);
 };
 
-randomPhoto().addEventListener('click', onClickShowFullPhoto)
+showFullPost().addEventListener('click', onClickShowFullPhoto);
 
 /* var closePicturePopup = function () {
   return bigPicture.classList.add('hidden');
