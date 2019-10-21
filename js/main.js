@@ -4,7 +4,6 @@ var examplePhoto = 1;
 var countOfPhotos = 25;
 var minLikes = 15;
 var maxLikes = 200;
-
 var controllerStep = 25;
 var SCALE = 100;
 
@@ -37,7 +36,6 @@ var getRandomNumberLikes = function (minRangeLikes, maxRangeLikes) {
 };
 
 var getPhotoDescription = function (photosCount) {
-
   var showFullPosts = [];
 
   for (var i = 1; i <= photosCount; i++) {
@@ -52,7 +50,7 @@ var getPhotoDescription = function (photosCount) {
       }
     });
   }
-  
+
   return showFullPosts;
 };
 
@@ -93,7 +91,6 @@ var createshowFullPost = function (photos) {
 
   return photos;
 };
-
 
 createshowFullPost(photoCollection);
 
@@ -174,7 +171,6 @@ var onClickShowFullPhoto = function () {
   getNewSocialComment();
   hideCommentsLoader();
   hideCommentCount();
-
 
   var getBigPictureCancel = function () {
     return document.querySelector('.big-picture__cancel');
@@ -410,6 +406,3 @@ var onEnterHashtags = function () {
 
 getPictureHashtags().addEventListener('change', onEnterHashtags);
 init();
-};
-
-openFullPhoto();
