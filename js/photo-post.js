@@ -11,7 +11,7 @@
   var examplePhoto = 1;
 
   var showFullPost = function () {
-    return document.querySelector('.picture');
+    return document.querySelectorAll('.picture');
   };
 
   var onClickShowFullPhoto = function () {
@@ -112,7 +112,9 @@
     document.addEventListener('keydown', onKeydownPostClose);
   };
 
-  showFullPost().addEventListener('click', onClickShowFullPhoto);
+  for (var i = 0; i < showFullPost().length; i++) {
+    showFullPost()[i].addEventListener('click', onClickShowFullPhoto);
+  }
 
   var getNewUploadPhoto = function () {
     return document.querySelector('#upload-file');
