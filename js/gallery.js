@@ -4,8 +4,6 @@
   window.gallery = {
     getPhotoDescription: function (photosCount) {
       var showFullPosts = [];
-
-      
       for (var i = 1; i <= photosCount; i++) {
         showFullPosts.push({
           url: 'photos/' + i + '.jpg',
@@ -22,7 +20,6 @@
       return showFullPosts;
     }
   };
-  
   var countOfPhotos = 25;
 
   var minLikes = 15;
@@ -68,7 +65,6 @@
   };
   
   var photoCollection = window.gallery.getPhotoDescription(countOfPhotos);
-
   var showFullPost = function (photos) {
 
     var photoTemplate = function () {
