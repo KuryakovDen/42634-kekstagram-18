@@ -5,6 +5,7 @@
     getPhotoDescription: function (photosCount) {
       var showFullPosts = [];
 
+      
       for (var i = 1; i <= photosCount; i++) {
         showFullPosts.push({
           url: 'photos/' + i + '.jpg',
