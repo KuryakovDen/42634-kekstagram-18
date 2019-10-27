@@ -111,30 +111,4 @@
     showFullPost()[i].addEventListener('click', onClickShowFullPhoto);
     var currentPhoto = i + 1;
   }
-
-  var getNewUploadPhoto = function () {
-    return document.querySelector('#upload-file');
-  };
-
-  var getEditPictureCancel = function () {
-    return window.post.getFormEditPicture().querySelector('.img-upload__cancel');
-  };
-
-  getEditPictureCancel().addEventListener('click', function () {
-    closePopupFilter();
-  });
-
-  var closePopupFilter = function (evt) {
-    evt.stopPropagation();
-    window.post.getFormEditPicture().classList.add('hidden');
-  };
-
-  document.addEventListener('keydown', closePopupFilter, true);
-
-  var onClickUploadFile = function (evt) {
-    evt.preventDefault();
-    window.post.getFormEditPicture().classList.remove('hidden');
-  };
-
-  getNewUploadPhoto().addEventListener('change', onClickUploadFile);
 }());

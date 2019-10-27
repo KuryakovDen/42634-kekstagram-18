@@ -1,12 +1,14 @@
 'use strict';
 
 (function () {
-  var getPictureHashtags = function () {
-    return window.post.getFormEditPicture().querySelector('.text__hashtags');
+  window.hashtags = {
+    getPictureHashtags: function () {
+      return window.post.getFormEditPicture().querySelector('.text__hashtags');
+    }
   };
 
   var onEnterHashtags = function () {
-    var hashtags = getPictureHashtags().value.split(' ');
+    var hashtags = window.hashtags.getPictureHashtags().value.split(' ');
     var message = '';
 
     for (var j = 0; j < hashtags.length; j++) {
@@ -26,11 +28,11 @@
     }
 
     if (message !== '') {
-      return getPictureHashtags().setCustomValidity(message);
+      return window.hashtags.getPictureHashtags().setCustomValidity(message);
     } else {
-      return getPictureHashtags().setCustomValidity(message);
+      return window.hashtags.getPictureHashtags().setCustomValidity(message);
     }
   };
 
-  getPictureHashtags().addEventListener('change', onEnterHashtags);
+  window.hashtags.getPictureHashtags().addEventListener('change', onEnterHashtags);
 }());

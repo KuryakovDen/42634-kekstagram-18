@@ -9,6 +9,10 @@
 
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
+  var getFilterComment = function () {
+    return window.post.getFormEditPicture().querySelector('.text__description');
+  };
+
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
   };
@@ -112,4 +116,32 @@
   for (var i = 0; i < filters.length; i++) {
     setPhotoFilter(filters[i]);
   }
+
+  var getNewUploadPhoto = function () {
+    return document.querySelector('#upload-file');
+  };
+
+  var getEditPictureCancel = function () {
+    return window.post.getFormEditPicture().querySelector('.img-upload__cancel');
+  };
+
+  var onClickUploadFile = function () {
+    window.post.getFormEditPicture().classList.remove('hidden');
+  };
+
+  getNewUploadPhoto().addEventListener('change', onClickUploadFile);
+
+  var closePopupFilter = function () {
+    window.post.getFormEditPicture().classList.add('hidden');
+  };
+
+  getEditPictureCancel().addEventListener('click', function () {
+    closePopupFilter();
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if (!getFilterComment().matches(':focus') && !window.hashtags.getPictureHashtags().matches(':focus')) {
+      window.util.escEvent(evt, closePopupFilter);
+    }
+  });
 }());
