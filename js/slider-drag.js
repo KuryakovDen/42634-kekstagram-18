@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var leftBorderPin = 220;
-  var rightBorderPin = 660;
+  var LEFT_BORDER_PIN = 725;
+  var RIGHT_BORDER_PIN = 1170;
 
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
@@ -20,12 +20,18 @@
     return document.querySelector('.effect-level__pin');
   };
 
+  var getSliderDepth = function () {
+    return document.querySelector('.effect-level__depth');
+  };
+
   getSliderPin().addEventListener('mousedown', function (evtDown) {
     evtDown.preventDefault();
 
     var startCoords = {
       x: evtDown.clientX,
     };
+
+    var dragged = false;
 
     var onMouseMovePin = function (moveEvt) {
       moveEvt.preventDefault();
@@ -38,15 +44,30 @@
         x: moveEvt.clientX,
       };
 
-      if (startCoords.x > leftBorderPin && startCoords.x <= rightBorderPin) {
+      if (startCoords.x > LEFT_BORDER_PIN && startCoords.x <= RIGHT_BORDER_PIN) {
         getSliderPin().style.left = (getSliderPin().offsetLeft - shift.x) + 'px';
+        getSliderDepth().style.width = (getSliderPin().offsetLeft - shift.x) + 'px';
       }
     };
 
-    getSliderPin().addEventListener('mousemove', onMouseMovePin);
+    // console.log(startCoords.x);
 
-    var onMouseUpPin = function () {
-      getEffectLevelPhotoValue().value = 20;
+    var onMouseUpPin = function (evtUp) {
+      evtUp.preventDefault();
+
+      getSliderPin().removeEventListener('mousemove', onMouseMovePin);
+      getSliderPin().removeEventListener('mouseup', onMouseUpPin);
+
+      if (dragged) {
+        var onClickPreventDefault = function (evt) {
+          evt.preventDefault();
+          getSliderPin().removeEventListener('click', onClickPreventDefault);
+        };
+      } else {
+        getSliderPin().addEventListener('click', onClickPreventDefault);
+      }
+
+      getEffectLevelPhotoValue().value = startCoords.x / 15; // 20
 
       if (getCurrentPhotoFilter().value === 'chrome') {
         window.scale.getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
@@ -83,6 +104,7 @@
       }
     };
 
-    getSliderPin().addEventListener('mouseup', onMouseUpPin);
+    document.addEventListener('mousemove', onMouseMovePin);
+    document.addEventListener('mouseup', onMouseUpPin);
   });
 }());
