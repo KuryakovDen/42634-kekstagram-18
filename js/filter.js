@@ -12,7 +12,6 @@
   var getFilterComment = function () {
     return window.post.getFormEditPicture().querySelector('.text__description');
   };
-
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
   };

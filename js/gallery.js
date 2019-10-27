@@ -21,7 +21,7 @@
       return showFullPosts;
     }
   };
-
+  
   var countOfPhotos = 25;
 
   var minLikes = 15;
@@ -45,6 +45,27 @@
     return Math.floor(Math.random() * (maxLikesNumber - minLikesNumber + 1)) + minLikesNumber;
   };
 
+  window.gallery = {
+    getPhotoDescription: function (photosCount) {
+      var showFullPosts = [];
+
+      for (var i = 1; i <= photosCount; i++) {
+        showFullPosts.push({
+          url: 'photos/' + i + '.jpg',
+          description: 'Описание фотографии',
+          likes: getRandomNumberLikes(minLikes, maxLikes),
+          comment: {
+            avatar: window.util.getRandomElement(avatars),
+            message: window.util.getRandomElement(comments),
+            author: window.util.getRandomElement(authorNames)
+          }
+        });
+      }
+
+      return showFullPosts;
+    }
+  };
+  
   var photoCollection = window.gallery.getPhotoDescription(countOfPhotos);
 
   var showFullPost = function (photos) {

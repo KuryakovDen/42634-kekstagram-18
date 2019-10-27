@@ -9,6 +9,7 @@
 
   var onEnterHashtags = function () {
     var hashtags = window.hashtags.getPictureHashtags().value.split(' ');
+
     var message = '';
 
     for (var j = 0; j < hashtags.length; j++) {

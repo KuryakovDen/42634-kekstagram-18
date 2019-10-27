@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Куряков](https://up.htmlacademy.ru/javascript/18/user/42634).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Мединский](https://htmlacademy.ru/profile/id1113291).
 
 ---
 
