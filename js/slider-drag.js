@@ -43,6 +43,8 @@
 
     var dragged = false;
 
+    // console.log(startCoords.x);
+
     var onMouseMovePin = function (moveEvt) {
       moveEvt.preventDefault();
 

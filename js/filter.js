@@ -17,24 +17,6 @@
     return window.post.getFormEditPicture().querySelector('.img-upload__preview img');
   };
 
-  /* var getEffectsFieldset = function () {
-    return document.querySelector('.effects');
-  };
-
-   var getCurrentPhotoEffect = function () {
-    return getEffectsFieldset().querySelector('input:checked');
-  };
-
-   getEffectsFieldset().addEventListener('change', function () {
-    console.log(getCurrentPhotoEffect());
-
-    if (getCurrentPhotoEffect().value === 'chrome') {
-      getUploadPreviewImage().classList.add('effects__preview--chrome');
-    } else if (getCurrentPhotoEffect().value === 'sepia') {
-      getUploadPreviewImage().classList.add('effects__preview--sepia');
-    }
-  });*/
-
   var setPhotoFilter = function (effect) {
     if (effect !== 'none') {
       window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
@@ -45,12 +27,13 @@
     };
 
     var onClickFilterEffect = function () {
+      getUploadPreviewImage().className = '';
       getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
 
-      if (effect === 'none') {
-        window.filter.getEffectFilterSlider().classList.add('visually-hidden');
-      } else {
+      if (effect !== 'none') {
         window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
+      } else {
+        window.filter.getEffectFilterSlider().classList.add('visually-hidden');
       }
 
       window.sliderDrag.resetSlider();
