@@ -1,6 +1,25 @@
 'use strict';
 
 (function () {
+  window.gallery = {
+    getPhotoDescription: function (photosCount) {
+      var showFullPosts = [];
+      for (var i = 1; i <= photosCount; i++) {
+        showFullPosts.push({
+          url: 'photos/' + i + '.jpg',
+          description: 'Описание фотографии',
+          likes: getRandomNumberLikes(minLikes, maxLikes),
+          comment: {
+            avatar: window.util.getRandomElement(avatars),
+            message: window.util.getRandomElement(comments),
+            author: window.util.getRandomElement(authorNames)
+          }
+        });
+      }
+
+      return showFullPosts;
+    }
+  };
   var countOfPhotos = 25;
 
   var minLikes = 15;
@@ -44,9 +63,7 @@
       return showFullPosts;
     }
   };
-
   var photoCollection = window.gallery.getPhotoDescription(countOfPhotos);
-
   var showFullPost = function (photos) {
 
     var photoTemplate = function () {

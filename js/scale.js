@@ -1,14 +1,14 @@
 'use strict';
 
 (function () {
-  var controllerStep = 25;
-  var SCALE = 100;
-
   window.scale = {
     getUploadPreview: function () {
       return window.post.getFormEditPicture().querySelector('.img-upload__preview');
     }
   };
+
+  var controllerStep = 25;
+  var SCALE = 100;
 
   var getSmallController = function () {
     return window.post.getFormEditPicture().querySelector('.scale__control--smaller');
