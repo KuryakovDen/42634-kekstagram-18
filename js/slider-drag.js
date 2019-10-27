@@ -1,6 +1,16 @@
 'use strict';
 
 (function () {
+  window.sliderDrag = {
+    resetSlider: function () {
+      getSliderPin().style.left = startSliderPin;
+      getSliderDepth().style.width = startSliderDepth;
+    }
+  };
+
+  var startSliderPin = 7 + 'px';
+  var startSliderDepth = 1 + 'px';
+
   var LEFT_BORDER_PIN = 725;
   var RIGHT_BORDER_PIN = 1170;
 

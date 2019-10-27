@@ -52,6 +52,8 @@
       } else {
         window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
       }
+
+      window.sliderDrag.resetSlider();
     };
 
     return getPhotoEffect().addEventListener('click', onClickFilterEffect);
