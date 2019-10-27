@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+  window.filter = {
+    getEffectFilterSlider: function () {
+      return window.post.getFormEditPicture().querySelector('.effect-level');
+    }
+  };
+
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
   var getPhotoUploadEffects = function () {
@@ -81,13 +87,9 @@
     }
   });*/
 
-  var getEffectFilterSlider = function () {
-    return window.post.getFormEditPicture().querySelector('.effect-level');
-  };
-
   var setPhotoFilter = function (effect) {
     if (effect !== 'none') {
-      getEffectFilterSlider().classList.remove('visually-hidden');
+      window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
     }
 
     var getPhotoEffect = function () {
@@ -98,9 +100,9 @@
       getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
 
       if (effect === 'none') {
-        getEffectFilterSlider().classList.add('visually-hidden');
+        window.filter.getEffectFilterSlider().classList.add('visually-hidden');
       } else {
-        getEffectFilterSlider().classList.remove('visually-hidden');
+        window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
       }
     };
 

@@ -8,8 +8,6 @@
     }
   };
 
-  var examplePhoto = 1;
-
   var showFullPost = function () {
     return document.querySelectorAll('.picture');
   };
@@ -59,8 +57,9 @@
 
     showBigPicture();
 
-    var firstPhotoFull = window.gallery.getPhotoDescription(examplePhoto)[0];
+    var firstPhotoFull = window.gallery.getPhotoDescription(currentPhoto)[currentPhoto - 1];
 
+    // console.log(firstPhotoFull);
 
     getBigPictureAddress().src = firstPhotoFull.url;
     getBigPictureCountLikes().textContent = firstPhotoFull.likes;
@@ -95,25 +94,22 @@
       return document.querySelector('.big-picture__cancel');
     };
 
-    var onClickPopupCancel = function () {
+    var closePostPopup = function () {
       bigPicture.classList.add('visually-hidden');
     };
 
-    var closePopupPost = function () {
-      bigPicture.classList.add('visually-hidden');
-    };
+    getBigPictureCancel().addEventListener('click', function () {
+      closePostPopup();
+    });
 
-    var onKeydownPostClose = function (evt) {
-      window.util.escEvent(evt, closePopupPost);
-    };
-
-    getBigPictureCancel().addEventListener('click', onClickPopupCancel);
-
-    document.addEventListener('keydown', onKeydownPostClose);
+    document.addEventListener('keydown', function (evt) {
+      window.util.escEvent(evt, closePostPopup);
+    });
   };
 
   for (var i = 0; i < showFullPost().length; i++) {
     showFullPost()[i].addEventListener('click', onClickShowFullPhoto);
+    var currentPhoto = i + 1;
   }
 
   var getNewUploadPhoto = function () {
@@ -125,18 +121,15 @@
   };
 
   getEditPictureCancel().addEventListener('click', function () {
-    window.post.getFormEditPicture().classList.add('hidden');
+    closePopupFilter();
   });
 
-  var closePopupFilter = function () {
+  var closePopupFilter = function (evt) {
+    evt.stopPropagation();
     window.post.getFormEditPicture().classList.add('hidden');
   };
 
-  var onKeydownFilterClose = function (evt) {
-    window.util.escEvent(evt, closePopupFilter);
-  };
-
-  document.addEventListener('keydown', onKeydownFilterClose);
+  document.addEventListener('keydown', closePopupFilter, true);
 
   var onClickUploadFile = function (evt) {
     evt.preventDefault();
