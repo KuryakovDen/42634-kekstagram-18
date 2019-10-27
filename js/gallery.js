@@ -63,7 +63,6 @@
       return showFullPosts;
     }
   };
-  
   var photoCollection = window.gallery.getPhotoDescription(countOfPhotos);
   var showFullPost = function (photos) {
 
