@@ -10,9 +10,9 @@
           description: 'Описание фотографии',
           likes: getRandomNumberLikes(minLikes, maxLikes),
           comment: {
-            avatar: window.util.getRandomElement(avatars),
-            message: window.util.getRandomElement(comments),
-            author: window.util.getRandomElement(authorNames)
+            avatar: randomElement(avatars),
+            message: randomElement(comments),
+            author: randomElement(authorNames)
           }
         });
       }
@@ -20,6 +20,8 @@
       return showFullPosts;
     }
   };
+  var randomElement = window.util.getRandomElement;
+
   var countOfPhotos = 25;
 
   var minLikes = 15;
@@ -53,9 +55,9 @@
           description: 'Описание фотографии',
           likes: getRandomNumberLikes(minLikes, maxLikes),
           comment: {
-            avatar: window.util.getRandomElement(avatars),
-            message: window.util.getRandomElement(comments),
-            author: window.util.getRandomElement(authorNames)
+            avatar: randomElement(avatars),
+            message: randomElement(comments),
+            author: randomElement(authorNames)
           }
         });
       }

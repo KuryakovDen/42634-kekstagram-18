@@ -7,8 +7,10 @@
     }
   };
 
+  var hashtagField = window.hashtags.getPictureHashtags();
+
   var onEnterHashtags = function () {
-    var hashtags = window.hashtags.getPictureHashtags().value.split(' ');
+    var hashtags = hashtagField.value.split(' ');
 
     var message = '';
 
@@ -29,11 +31,11 @@
     }
 
     if (message !== '') {
-      return window.hashtags.getPictureHashtags().setCustomValidity(message);
+      return hashtagField.setCustomValidity(message);
     } else {
-      return window.hashtags.getPictureHashtags().setCustomValidity(message);
+      return hashtagField.setCustomValidity(message);
     }
   };
 
-  window.hashtags.getPictureHashtags().addEventListener('change', onEnterHashtags);
+  hashtagField.addEventListener('change', onEnterHashtags);
 }());

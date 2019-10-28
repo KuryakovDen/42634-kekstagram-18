@@ -7,23 +7,26 @@
     }
   };
 
+  var sliderLevel = window.filter.getEffectFilterSlider();
+  var filterPopup = window.post.getFormEditPicture();
+
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
   var getFilterComment = function () {
-    return window.post.getFormEditPicture().querySelector('.text__description');
+    return filterPopup.querySelector('.text__description');
   };
 
   var getUploadPreviewImage = function () {
-    return window.post.getFormEditPicture().querySelector('.img-upload__preview img');
+    return filterPopup.querySelector('.img-upload__preview img');
   };
 
   var setPhotoFilter = function (effect) {
     if (effect !== 'none') {
-      window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
+      sliderLevel.classList.remove('visually-hidden');
     }
 
     var getPhotoEffect = function () {
-      return window.post.getFormEditPicture().querySelector('#effect-' + effect + '');
+      return filterPopup.querySelector('#effect-' + effect + '');
     };
 
     var onClickFilterEffect = function () {
@@ -31,9 +34,9 @@
       getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
 
       if (effect !== 'none') {
-        window.filter.getEffectFilterSlider().classList.remove('visually-hidden');
+        sliderLevel.classList.remove('visually-hidden');
       } else {
-        window.filter.getEffectFilterSlider().classList.add('visually-hidden');
+        sliderLevel.classList.add('visually-hidden');
       }
 
       window.sliderDrag.resetSlider();
@@ -51,17 +54,17 @@
   };
 
   var getEditPictureCancel = function () {
-    return window.post.getFormEditPicture().querySelector('.img-upload__cancel');
+    return filterPopup.querySelector('.img-upload__cancel');
   };
 
   var onClickUploadFile = function () {
-    window.post.getFormEditPicture().classList.remove('hidden');
+    filterPopup.classList.remove('hidden');
   };
 
   getNewUploadPhoto().addEventListener('change', onClickUploadFile);
 
   var closePopupFilter = function () {
-    window.post.getFormEditPicture().classList.add('hidden');
+    filterPopup.classList.add('hidden');
   };
 
   getEditPictureCancel().addEventListener('click', function () {
