@@ -7,19 +7,22 @@
     }
   };
 
+  var filterOverlay = window.post.getFormEditPicture();
+  var filterImage = window.scale.getUploadPreview();
+
   var controllerStep = 25;
   var SCALE = 100;
 
   var getSmallController = function () {
-    return window.post.getFormEditPicture().querySelector('.scale__control--smaller');
+    return filterOverlay.querySelector('.scale__control--smaller');
   };
 
   var getBigController = function () {
-    return window.post.getFormEditPicture().querySelector('.scale__control--bigger');
+    return filterOverlay.querySelector('.scale__control--bigger');
   };
 
   var getControllerValue = function () {
-    return window.post.getFormEditPicture().querySelector('.scale__control--value');
+    return filterOverlay.querySelector('.scale__control--value');
   };
 
   var renderScale = function (newScale) {
@@ -44,7 +47,7 @@
     }
     SCALE = SCALE - controllerStep;
     renderScale(SCALE);
-    window.scale.getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
+    filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
 
   var onClickPlusControl = function () {
@@ -54,7 +57,7 @@
 
     SCALE = SCALE + controllerStep;
     renderScale(SCALE);
-    window.scale.getUploadPreview().style.transform = 'scale(' + SCALE / 100 + ')';
+    filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
 
   init();
