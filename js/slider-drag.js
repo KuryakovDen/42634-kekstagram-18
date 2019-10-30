@@ -34,19 +34,18 @@
     return document.querySelector('.effect-level__depth');
   };
 
-  getSliderPin().addEventListener('mousedown', function (evtDown) {
-    evtDown.preventDefault();
+  getSliderPin().addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
 
     var startCoords = {
-      x: evtDown.clientX,
+      x: evt.clientX,
     };
 
     var dragged = false;
 
-    // console.log(startCoords.x);
-
     var onMouseMovePin = function (moveEvt) {
       moveEvt.preventDefault();
+      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -62,17 +61,15 @@
       }
     };
 
-    // console.log(startCoords.x);
-
     var onMouseUpPin = function (evtUp) {
       evtUp.preventDefault();
 
-      getSliderPin().removeEventListener('mousemove', onMouseMovePin);
-      getSliderPin().removeEventListener('mouseup', onMouseUpPin);
+      document.removeEventListener('mousemove', onMouseMovePin);
+      document.removeEventListener('mouseup', onMouseUpPin);
 
       if (dragged) {
-        var onClickPreventDefault = function (evt) {
-          evt.preventDefault();
+        var onClickPreventDefault = function (clickEvt) {
+          clickEvt.preventDefault();
           getSliderPin().removeEventListener('click', onClickPreventDefault);
         };
       } else {
