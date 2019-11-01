@@ -1,78 +1,13 @@
 'use strict';
 
 (function () {
-  window.gallery = {
-    getPhotoDescription: function (photosCount) {
-      var showFullPosts = [];
-      for (var i = 1; i <= photosCount; i++) {
-        showFullPosts.push({
-          url: 'photos/' + i + '.jpg',
-          description: 'Описание фотографии',
-          likes: getRandomNumberLikes(minLikes, maxLikes),
-          comment: {
-            avatar: randomElement(avatars),
-            message: randomElement(comments),
-            author: randomElement(authorNames)
-          }
-        });
-      }
-
-      return showFullPosts;
-    }
-  };
-  var randomElement = window.util.getRandomElement;
-
-  var countOfPhotos = 25;
-
-  var minLikes = 15;
-  var maxLikes = 200;
-
-  var comments = ['Всё отлично!',
-    'В целом всё неплохо. Но не всё.',
-    'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-    'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-    'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-    'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
-
-  var avatars = ['img/avatar-1.svg', 'img/avatar-2.svg', 'img/avatar-3.svg', 'img/avatar-4.svg', 'img/avatar-5.svg', 'img/avatar-6.svg'];
-
-  var authorNames = ['Маша', 'Паша', 'Таня', 'Вася', 'Денис', 'Вова', 'Алёна', 'Игорь', 'Сергей', 'Дима', 'Миша', 'Саша', 'Никита'];
-
-  var getRandomNumberLikes = function (minRangeLikes, maxRangeLikes) {
-    var minLikesNumber = Math.ceil(minRangeLikes);
-    var maxLikesNumber = Math.ceil(maxRangeLikes);
-
-    return Math.floor(Math.random() * (maxLikesNumber - minLikesNumber + 1)) + minLikesNumber;
-  };
-
-  window.gallery = {
-    getPhotoDescription: function (photosCount) {
-      var showFullPosts = [];
-
-      for (var i = 1; i <= photosCount; i++) {
-        showFullPosts.push({
-          url: 'photos/' + i + '.jpg',
-          description: 'Описание фотографии',
-          likes: getRandomNumberLikes(minLikes, maxLikes),
-          comment: {
-            avatar: randomElement(avatars),
-            message: randomElement(comments),
-            author: randomElement(authorNames)
-          }
-        });
-      }
-
-      return showFullPosts;
-    }
-  };
-  var photoCollection = window.gallery.getPhotoDescription(countOfPhotos);
-  var showFullPost = function (photos) {
+  var onReceiveSuccess = function (photos) {
 
     var photoTemplate = function () {
       return document.querySelector('#picture').content.querySelector('.picture');
     };
 
-    var currentPicture = function () {
+    var picturesList = function () {
       return document.querySelector('.pictures');
     };
 
@@ -93,13 +28,29 @@
 
       getPictureAddress().src = photos[i].url;
       getPictureLikes().textContent = photos[i].likes;
-      getPictureComments().textContent = photos[i].comment.message;
+      getPictureComments().textContent = photos[i].comments.message;
 
-      currentPicture().appendChild(photoElement);
+      picturesList().appendChild(photoElement);
     }
 
     return photos;
   };
 
-  showFullPost(photoCollection);
+  var onReceiveError = function () {
+    var errorTemplate = function () {
+      return document.querySelector('#error').content.querySelector('.error');
+    };
+
+    var mainPage = function () {
+      return document.querySelector('main');
+    };
+
+    var errorElement = function () {
+      return errorTemplate().cloneNode(true);
+    };
+
+    mainPage().appendChild(errorElement());
+  };
+
+  window.receive('https://js.dump.academy/kekstagram/data', onReceiveSuccess, onReceiveError);
 }());

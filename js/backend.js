@@ -4,7 +4,7 @@
   window.receive = function (url, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.timeout = 3000; // 3 seconds
+    xhr.timeout = 1000; // 1 second
 
     xhr.open('GET', url);
 
