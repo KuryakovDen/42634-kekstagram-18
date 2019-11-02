@@ -20,11 +20,11 @@
       return document.querySelector('main');
     };
 
-    var successgetSuccessPopup = function () {
+    var getSuccessPopup = function () {
       return successTemplate().cloneNode(true);
     };
 
-    var getSuccessPopup = mainPage().appendChild(successgetSuccessPopup());
+    var getSuccessPopup = mainPage().appendChild(getSuccessPopup());
 
     var getSuccessButton = function () {
       return getSuccessPopup.querySelector('.success__button');
@@ -54,28 +54,28 @@
       return document.querySelector('#error').content.querySelector('.error');
     };
 
-    var getErrorSuccessPopup = function () {
+    var getErrorPopup = function () {
       return errorTemplate().cloneNode(true);
     };
 
-    mainPage().appendChild(getErrorSuccessPopup());
+    var getErrorPopup = mainPage().appendChild(getErrorPopup());
+
+    var getErrorButton = function () {
+      return getErrorPopup.querySelector('.error__button');
+    };
+
+    var closeErrorPopup = function () {
+      getErrorPopup.classList.add('visually-hidden');
+    };
+
+    getErrorButton().addEventListener('click', function () {
+      closeErrorPopup();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      window.util.escEvent(evt, closeErrorPopup);
+    });
   };
-
-  /* var getErrorButtons = function () {
-    return document.querySelectorAll('.error__button');
-  };
-
-  var closeErrorPopup = function () {
-    errorTemplate().classList.add('hidden');
-  };
-
-  getErrorButtons().addEventListener('click', function () {
-    closeErrorPopup();
-  });
-
-  document.addEventListener('keydown', function () {
-    window.escEvent(evt, closeErrorPopup);
-  });*/
 
   getFilterForm().addEventListener('submit', function (evt) {
     window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
