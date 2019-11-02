@@ -20,11 +20,27 @@
       return document.querySelector('main');
     };
 
-    var successElement = function () {
+    var successgetSuccessPopup = function () {
       return successTemplate().cloneNode(true);
     };
 
-    mainPage().appendChild(successElement());
+    var getSuccessPopup = mainPage().appendChild(successgetSuccessPopup());
+
+    var getSuccessButton = function () {
+      return getSuccessPopup.querySelector('.success__button');
+    };
+
+    var closeSuccessPopup = function () {
+      getSuccessPopup.classList.add('visually-hidden');
+    };
+
+    getSuccessButton().addEventListener('click', function () {
+      closeSuccessPopup();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      window.util.escEvent(evt, closeSuccessPopup);
+    });
   };
 
   var onSendError = function () {
@@ -38,11 +54,11 @@
       return document.querySelector('#error').content.querySelector('.error');
     };
 
-    var errorElement = function () {
+    var getErrorSuccessPopup = function () {
       return errorTemplate().cloneNode(true);
     };
 
-    mainPage().appendChild(errorElement());
+    mainPage().appendChild(getErrorSuccessPopup());
   };
 
   /* var getErrorButtons = function () {
@@ -64,21 +80,5 @@
   getFilterForm().addEventListener('submit', function (evt) {
     window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
     evt.preventDefault();
-  });
-
-  var getSuccessButton = function () {
-    return document.querySelector('.success__button');
-  };
-
-  var closeSuccessPopup = function () {
-    successTemplate().classList.add('hidden');
-  };
-
-  getSuccessButton().addEventListener('click', function () {
-    closeSuccessPopup();
-  });
-
-  document.addEventListener('keydown', function (evt) {
-    window.escEvent(evt, closeSuccessPopup);
   });
 }());
