@@ -91,18 +91,31 @@
 
   var onSendSuccess = function () {
     getFilterOverlay().classList.add('hidden');
-    // getUploadControl().classList.add('hidden');
+
+    var mainPage = function () {
+      return document.querySelector('main');
+    };
+
+    var successTemplate = function () {
+      return document.querySelector('#success').content.querySelector('.success');
+    };
+
+    var successElement = function () {
+      return successTemplate().cloneNode(true);
+    };
+
+    mainPage().appendChild(successElement());
   };
 
   var onSendError = function () {
     getFilterOverlay().classList.add('hidden');
 
-    var errorTemplate = function () {
-      return document.querySelector('#error').content.querySelector('.error');
-    };
-
     var mainPage = function () {
       return document.querySelector('main');
+    };
+
+    var errorTemplate = function () {
+      return document.querySelector('#error').content.querySelector('.error');
     };
 
     var errorElement = function () {
