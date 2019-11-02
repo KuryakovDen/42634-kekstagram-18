@@ -12,9 +12,21 @@
 
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
+  var getFilterForm = function () {
+    return document.querySelector('.img-upload__form');
+  };
+
+  var getFilterOverlay = function () {
+    return getFilterForm().querySelector('.img-upload__overlay');
+  };
+
   var getFilterComment = function () {
     return filterPopup.querySelector('.text__description');
   };
+
+  /* var getUploadControl = function () {
+    return document.querySelector('.img-upload__control');
+  };*/
 
   var getUploadPreviewImage = function () {
     return filterPopup.querySelector('.img-upload__preview img');
@@ -75,5 +87,33 @@
     if (!getFilterComment().matches(':focus') && !window.hashtags.getPictureHashtags().matches(':focus')) {
       window.util.escEvent(evt, closePopupFilter);
     }
+  });
+
+  var onSendSuccess = function () {
+    getFilterOverlay().classList.add('hidden');
+    // getUploadControl().classList.add('hidden');
+  };
+
+  var onSendError = function () {
+    getFilterOverlay().classList.add('hidden');
+
+    var errorTemplate = function () {
+      return document.querySelector('#error').content.querySelector('.error');
+    };
+
+    var mainPage = function () {
+      return document.querySelector('main');
+    };
+
+    var errorElement = function () {
+      return errorTemplate().cloneNode(true);
+    };
+
+    mainPage().appendChild(errorElement());
+  };
+
+  getFilterForm().addEventListener('submit', function (evt) {
+    window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
+    evt.preventDefault();
   });
 }());
