@@ -30,8 +30,12 @@
       return getSuccessElement.querySelector('.success__inner');
     };
 
+    var getSuccessTitle = function () {
+      return getSuccessElement.querySelector('.success__title');
+    };
+
     document.addEventListener('click', function (evt) {
-      if (evt.target !== getSuccessMessage() /* && getSuccessMessage().childNodes(evt.target).length === 0*/) {
+      if (evt.target !== getSuccessMessage() && evt.target !== getSuccessTitle()) {
         closeSuccessPopup();
       }
     });
@@ -74,8 +78,12 @@
       return getErrorElement.querySelector('.error__inner');
     };
 
+    var getErrorTitle = function () {
+      return getErrorElement.querySelector('.error__title');
+    };
+
     document.addEventListener('click', function (evt) {
-      if (evt.target !== getErrorMessage()) {
+      if (evt.target !== getErrorMessage() && evt.target !== getErrorTitle()) {
         closeErrorPopup();
       }
     });
