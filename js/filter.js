@@ -16,6 +16,10 @@
     return filterPopup.querySelector('.text__description');
   };
 
+  /* var getUploadControl = function () {
+    return document.querySelector('.img-upload__control');
+  };*/
+
   var getUploadPreviewImage = function () {
     return filterPopup.querySelector('.img-upload__preview img');
   };
