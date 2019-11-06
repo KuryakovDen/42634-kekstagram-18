@@ -121,9 +121,6 @@
 
           renderComments();
 
-          // hideCommentsLoader();
-          // hideCommentCount();
-
           var getBigPictureCancel = function () {
             return document.querySelector('.big-picture__cancel');
           };
@@ -132,8 +129,8 @@
             bigPicture().classList.add('visually-hidden');
           };
 
-          var onEscCloseFullPhoto = function (evt) {
-            window.util.escEvent(evt, closePostPopup);
+          var onEscCloseFullPhoto = function (evtEsc) {
+            window.util.escEvent(evtEsc, closePostPopup);
           };
 
           getBigPictureCancel().addEventListener('click', closePostPopup);
@@ -161,6 +158,54 @@
     };
 
     getImgFilters().classList.remove('img-filters--inactive');
+
+    var renderCurrentGallery = function (name, callback) {
+      var currentButton = function () {
+        return document.querySelector('#filter-' + name + '');
+      };
+
+      var onClickCurrentButton = function () {
+        callback();
+      };
+
+      currentButton().addEventListener('click', onClickCurrentButton);
+    };
+
+    renderCurrentGallery('popular', function () {
+      // var photoCopy = photos.slice();
+
+      // console.log(photoCopy);
+    });
+
+    renderCurrentGallery('random', function () {
+      var photoCopy = photos.slice();
+
+      photoCopy.sort(function () {
+        return 0.5 - Math.random();
+      });
+
+      photoCopy.splice(10);
+
+      // window.gallery.photos = photos;
+      window.gallery.buildGallery(photoCopy);
+    });
+
+    renderCurrentGallery('discussed', function () {
+      var photoCopy = photos.slice();
+
+      photoCopy.sort(function (firstArray, secondArray) {
+        if (firstArray.comments.length < secondArray.comments.length) {
+          return 1;
+        } else if (firstArray.comments.length > secondArray.comments.length) {
+          return -1;
+        }
+
+        return 0;
+      });
+
+      // window.gallery.photos = photos;
+      window.gallery.buildGallery(photoCopy);
+    });
   };
 
   var onReceiveError = function () {

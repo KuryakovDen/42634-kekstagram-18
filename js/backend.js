@@ -3,10 +3,9 @@
 (function () {
   window.receive = function (url, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.timeout = 4000; // 4 seconds
 
     xhr.open('GET', url);
+    xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
@@ -29,7 +28,6 @@
 
   window.send = function (url, data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
@@ -47,9 +45,9 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
-    xhr.timeout = 4000;
-
     xhr.open('POST', url);
+
+    xhr.responseType = 'json';
     xhr.send(data);
   };
 }());
