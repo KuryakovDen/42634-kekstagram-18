@@ -1,55 +1,234 @@
 'use strict';
 
 (function () {
-  var onReceiveSuccess = function (photos) {
-
-    var photoTemplate = function () {
-      return document.querySelector('#picture').content.querySelector('.picture');
-    };
-
-    var picturesList = function () {
-      return document.querySelector('.pictures');
-    };
-
-    for (var i = 0; i < photos.length; i++) {
-      var photoElement = photoTemplate().cloneNode(true);
-
-      var getPictureAddress = function () {
-        return photoElement.querySelector('.picture__img');
+  window.gallery = {
+    buildGallery: function (photos) {
+      var getPhotoTemplate = function () {
+        return document.querySelector('#picture').content.querySelector('.picture');
       };
 
-      var getPictureLikes = function () {
-        return photoElement.querySelector('.picture__likes');
+      var getBigPicture = function () {
+        return document.querySelector('.big-picture');
       };
 
-      var getPictureComments = function () {
-        return photoElement.querySelector('.picture__comments');
+      var getPhoto = function (element) {
+        element.url === this.attributes.src.value; // eslint-disable-line
       };
 
-      getPictureAddress().src = photos[i].url;
-      getPictureLikes().textContent = photos[i].likes;
-      getPictureComments().textContent = photos[i].comments.message;
+      for (var i = 0; i < photos.length; i++) {
+        var photoElement = getPhotoTemplate().cloneNode(true);
 
-      picturesList().appendChild(photoElement);
+        // photos.forEach(function (actualPhoto) {
+        var renderGalleryPhotos = function () {
+
+          var getPicturesList = function () {
+            return document.querySelector('.pictures');
+          };
+
+          var getPictureAddress = function () {
+            return photoElement.querySelector('.picture__img');
+          };
+
+          var getPictureLikes = function () {
+            return photoElement.querySelector('.picture__likes');
+          };
+
+          var getPictureComments = function () {
+            return photoElement.querySelector('.picture__comments');
+          };
+
+          // var photo = actualPhoto;
+          var photo = photos[i];
+
+          getPictureAddress().src = photo.url;
+          getPictureLikes().textContent = photo.likes;
+          getPictureComments().textContent = photo.comments.message;
+
+          getPicturesList().appendChild(photoElement);
+        };
+
+        renderGalleryPhotos();
+
+        var onClickShowFullPhoto = function (evt) {
+          var target = evt.target;
+
+          var currentPhoto = window.gallery.photos.find(getPhoto, target);
+
+          var renderFullPhoto = function () {
+            var getgetBigPictureAddress = function () {
+              return getBigPicture().querySelector('.big-picture__img img');
+            };
+
+            var getgetBigPictureCountLikes = function () {
+              return getBigPicture().querySelector('.likes-count');
+            };
+
+            var getgetBigPictureDescription = function () {
+              return getBigPicture().querySelector('.social__caption');
+            };
+
+            getgetBigPictureAddress().src = currentPhoto.url;
+            getgetBigPictureCountLikes().textContent = currentPhoto.likes;
+            getgetBigPictureDescription().textContent = currentPhoto.description;
+          };
+
+          renderFullPhoto();
+
+          var renderComments = function () {
+            var getSocialComment = function () {
+              return document.querySelector('.social__comment');
+            };
+
+            var getAllSocialComments = function () {
+              return document.querySelectorAll('.social__comment');
+            };
+
+            var getSocialCommentsList = function () {
+              return document.querySelector('.social__comments');
+            };
+
+            var getgetBigPictureCountComments = function () {
+              return document.querySelector('.comments-count');
+            };
+
+            /* var hideCommentCount = function () {
+              return document.querySelector('.social__comment-count').classList.add('visually-hidden');
+            };
+
+            var hideCommentsLoader = function () {
+              return document.querySelector('.comments-loader').classList.add('visually-hidden');
+            };*/
+
+            currentPhoto.comments.forEach(function (comment) {
+              var newSocialComment = getSocialComment().cloneNode(true);
+
+              var getSocialPicture = function () {
+                return newSocialComment.querySelector('.social__picture');
+              };
+
+              var getSocialCommentText = function () {
+                return newSocialComment.querySelector('.social__text');
+              };
+
+              getSocialCommentsList().appendChild(newSocialComment);
+
+              getSocialPicture().src = comment.avatar;
+              getSocialPicture().alt = comment.author;
+              getgetBigPictureCountComments().textContent = getAllSocialComments().length;
+              getSocialCommentText().textContent = comment.message;
+            });
+          };
+
+          renderComments();
+
+          var getgetBigPictureCancel = function () {
+            return document.querySelector('.big-picture__cancel');
+          };
+
+          var closePostPopup = function () {
+            getBigPicture().classList.add('visually-hidden');
+          };
+
+          var onEscCloseFullPhoto = function (evtEsc) {
+            window.util.escEvent(evtEsc, closePostPopup);
+          };
+
+          getgetBigPictureCancel().addEventListener('click', closePostPopup);
+
+          var showFullPhoto = function () {
+            return getBigPicture().classList.remove('hidden');
+          };
+
+          showFullPhoto();
+
+          document.addEventListener('keydown', onEscCloseFullPhoto);
+        };
+        // });
+
+        photoElement.addEventListener('click', onClickShowFullPhoto);
+      }
+
+      return photos;
     }
+  };
 
-    return photos;
+  var onReceiveSuccess = function (photos) {
+    window.gallery.photos = photos;
+    window.gallery.buildGallery(photos);
+
+    var getImgFilters = function () {
+      return document.querySelector('.img-filters');
+    };
+
+    getImgFilters().classList.remove('img-filters--inactive');
+
+    var renderCurrentGallery = function (name, callback) {
+      var currentButton = function () {
+        return document.querySelector('#filter-' + name + '');
+      };
+
+      var onClickCurrentButton = function () {
+        callback();
+      };
+
+      currentButton().addEventListener('click', onClickCurrentButton);
+    };
+
+    renderCurrentGallery('popular', function () {
+      // var photoCopy = photos.slice();
+
+      // console.log(photoCopy);
+    });
+
+    renderCurrentGallery('random', function () {
+      var photoCopy = photos.slice();
+
+      photoCopy.sort(function () {
+        return 0.5 - Math.random();
+      });
+
+      photoCopy.splice(10);
+
+      // window.gallery.photos = photos;
+      window.setTimeout(function () {
+        window.gallery.buildGallery(photoCopy);
+      }, 500);
+    });
+
+    renderCurrentGallery('discussed', function () {
+      var photoCopy = photos.slice();
+
+      photoCopy.sort(function (firstArray, secondArray) {
+        if (firstArray.comments.length < secondArray.comments.length) {
+          return 1;
+        } else if (firstArray.comments.length > secondArray.comments.length) {
+          return -1;
+        }
+
+        return 0;
+      });
+
+      // window.gallery.photos = photos;
+      window.setTimeout(function () {
+        window.gallery.buildGallery(photoCopy);
+      }, 500);
+    });
   };
 
   var onReceiveError = function () {
-    var errorTemplate = function () {
+    var getErrorTemplate = function () {
       return document.querySelector('#error').content.querySelector('.error');
     };
 
-    var mainPage = function () {
+    var getMainPage = function () {
       return document.querySelector('main');
     };
 
     var errorElement = function () {
-      return errorTemplate().cloneNode(true);
+      return getErrorTemplate().cloneNode(true);
     };
 
-    mainPage().appendChild(errorElement());
+    getMainPage().appendChild(errorElement());
   };
 
   window.receive('https://js.dump.academy/kekstagram/data', onReceiveSuccess, onReceiveError);

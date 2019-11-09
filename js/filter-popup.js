@@ -1,12 +1,16 @@
 'use strict';
 
 (function () {
-  var getFilterForm = function () {
-    return document.querySelector('.img-upload__form');
+  window.filterPopup = {
+    getFilterOverlay: function () {
+      return document.querySelector('.img-upload__overlay');
+    }
   };
 
-  var getFilterOverlay = function () {
-    return getFilterForm().querySelector('.img-upload__overlay');
+  var filterOverlay = window.filterPopup.getFilterOverlay();
+
+  var getFilterForm = function () {
+    return document.querySelector('.img-upload__form');
   };
 
   var successTemplate = function () {
@@ -14,7 +18,60 @@
   };
 
   var onSendSuccess = function () {
-    getFilterOverlay().classList.add('hidden');
+    filterOverlay.classList.add('hidden');
+
+    var resetFilterForm = function () {
+      var uploadedPhoto = window.filter.getNewUploadPhoto();
+      uploadedPhoto.value = null;
+
+      window.sliderDrag.resetSlider();
+
+      var resetScale = function () {
+        var fullsizeFilter = 100;
+        var filterImage = window.scale.getUploadPreview();
+
+        filterImage.style.transform = 'scale(' + 1 + ')';
+        window.scale.renderScale(fullsizeFilter);
+      };
+
+      var resetCurrentFilter = function () {
+        var getUploadPreview = function () {
+          return document.querySelector('.img-upload__preview');
+        };
+
+        var getUploadPreviewImage = function () {
+          return document.querySelector('.img-upload__preview img');
+        };
+
+        var getCheckedFilter = function () {
+          return document.querySelector('.effects__radio:checked');
+        };
+
+        var getDefaultFilter = function () {
+          return document.querySelector('#effect-none');
+        };
+
+        getCheckedFilter().checked = false;
+        getDefaultFilter().checked = true;
+
+        getUploadPreview().style = null;
+        getUploadPreviewImage().classList = 'effects__preview--none';
+      };
+
+      var resetText = function () {
+        var hashtagsText = window.hashtags.getPictureHashtags();
+        var hashtagsDescription = window.hashtags.getPictureDescription();
+
+        hashtagsText.value = null;
+        hashtagsDescription.value = null;
+      };
+
+      resetScale();
+      resetCurrentFilter();
+      resetText();
+    };
+
+    resetFilterForm();
 
     var mainPage = function () {
       return document.querySelector('main');
@@ -58,7 +115,7 @@
   };
 
   var onSendError = function () {
-    getFilterOverlay().classList.add('hidden');
+    filterOverlay.classList.add('hidden');
 
     var mainPage = function () {
       return document.querySelector('main');
