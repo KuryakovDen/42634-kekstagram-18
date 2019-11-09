@@ -1,14 +1,16 @@
 'use strict';
 
 (function () {
-  var uploadedPhoto = window.filter.getNewUploadPhoto();
+  window.filterPopup = {
+    getFilterOverlay: function () {
+      return document.querySelector('.img-upload__overlay');
+    }
+  };
+
+  var filterOverlay = window.filterPopup.getFilterOverlay();
 
   var getFilterForm = function () {
     return document.querySelector('.img-upload__form');
-  };
-
-  var getFilterOverlay = function () {
-    return getFilterForm().querySelector('.img-upload__overlay');
   };
 
   var successTemplate = function () {
@@ -16,8 +18,49 @@
   };
 
   var onSendSuccess = function () {
-    getFilterOverlay().classList.add('hidden');
-    uploadedPhoto.value = null;
+    filterOverlay.classList.add('hidden');
+
+    var resetData = function () {
+      var uploadedPhoto = window.filter.getNewUploadPhoto();
+      uploadedPhoto.value = null;
+
+      window.sliderDrag.resetSlider();
+
+      var resetScale = function () {
+        var fullsizeFilter = 100;
+        var filterImage = window.scale.getUploadPreview();
+
+        filterImage.style.transform = 'scale(' + 1 + ')';
+        window.scale.renderScale(fullsizeFilter);
+      };
+
+      var resetCurrentFilter = function () {
+        var getUploadPreview = function () {
+          return document.querySelector('.img-upload__preview');
+        };
+
+        var getUploadPreviewImage = function () {
+          return document.querySelector('.img-upload__preview img');
+        };
+
+        getUploadPreview().style = null;
+        getUploadPreviewImage().className = 'effects__preview--none';
+      };
+
+      var resetText = function () {
+        var hashtagsText = window.hashtags.getPictureHashtags();
+        var hashtagsDescription = window.hashtags.getPictureDescription();
+
+        hashtagsText.value = null;
+        hashtagsDescription.value = null;
+      };
+
+      resetScale();
+      resetCurrentFilter();
+      resetText();
+    };
+
+    resetData();
 
     var mainPage = function () {
       return document.querySelector('main');
@@ -61,7 +104,7 @@
   };
 
   var onSendError = function () {
-    getFilterOverlay().classList.add('hidden');
+    filterOverlay.classList.add('hidden');
 
     var mainPage = function () {
       return document.querySelector('main');

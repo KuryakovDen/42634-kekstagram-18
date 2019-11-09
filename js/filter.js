@@ -8,6 +8,32 @@
 
     getNewUploadPhoto: function () {
       return document.querySelector('#upload-file');
+    },
+
+    setPhotoFilter: function (effect) {
+      if (effect !== 'none') {
+        sliderLevel.classList.remove('visually-hidden');
+      }
+
+      var getPhotoEffect = function () {
+        return filterPopup.querySelector('#effect-' + effect + '');
+      };
+
+      var onClickFilterEffect = function () {
+        getUploadPreviewImage().className = '';
+        getUploadPreviewImage().className = 'effects__preview--none';
+        getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
+
+        if (effect !== 'none') {
+          sliderLevel.classList.remove('visually-hidden');
+        } else {
+          sliderLevel.classList.add('visually-hidden');
+        }
+
+        window.sliderDrag.resetSlider();
+      };
+
+      return getPhotoEffect().addEventListener('click', onClickFilterEffect);
     }
   };
 
@@ -21,42 +47,13 @@
     return filterPopup.querySelector('.text__description');
   };
 
-  /* var getUploadControl = function () {
-    return document.querySelector('.img-upload__control');
-  };*/
-
   var getUploadPreviewImage = function () {
     return filterPopup.querySelector('.img-upload__preview img');
   };
 
-  var setPhotoFilter = function (effect) {
-    if (effect !== 'none') {
-      sliderLevel.classList.remove('visually-hidden');
-    }
-
-    var getPhotoEffect = function () {
-      return filterPopup.querySelector('#effect-' + effect + '');
-    };
-
-    var onClickFilterEffect = function () {
-      getUploadPreviewImage().className = '';
-      getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
-
-      if (effect !== 'none') {
-        sliderLevel.classList.remove('visually-hidden');
-      } else {
-        sliderLevel.classList.add('visually-hidden');
-      }
-
-      window.sliderDrag.resetSlider();
-    };
-
-    return getPhotoEffect().addEventListener('click', onClickFilterEffect);
-  };
-
-  for (var i = 0; i < filters.length; i++) {
-    setPhotoFilter(filters[i]);
-  }
+  filters.forEach(function (filter) {
+    window.filter.setPhotoFilter(filter);
+  });
 
   var getEditPictureCancel = function () {
     return filterPopup.querySelector('.img-upload__cancel');

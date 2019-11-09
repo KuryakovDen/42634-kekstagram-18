@@ -4,6 +4,15 @@
   window.scale = {
     getUploadPreview: function () {
       return window.post.getFormEditPicture().querySelector('.img-upload__preview');
+    },
+
+    getControllerValue: function () {
+      return filterOverlay.querySelector('.scale__control--value');
+    },
+
+    renderScale: function (newScale) {
+      var scaleControl = window.scale.getControllerValue();
+      scaleControl.value = newScale + '%';
     }
   };
 
@@ -21,12 +30,8 @@
     return filterOverlay.querySelector('.scale__control--bigger');
   };
 
-  var getControllerValue = function () {
-    return filterOverlay.querySelector('.scale__control--value');
-  };
-
   var renderScale = function (newScale) {
-    var scaleControl = getControllerValue();
+    var scaleControl = window.scale.getControllerValue();
     scaleControl.value = newScale + '%';
   };
 
