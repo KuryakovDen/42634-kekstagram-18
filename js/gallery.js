@@ -177,7 +177,6 @@
       // console.log(photoCopy);
     });
 
-    var lastTimeout;
     renderCurrentGallery('random', function () {
       var photoCopy = photos.slice();
 
@@ -188,7 +187,7 @@
       photoCopy.splice(10);
 
       // window.gallery.photos = photos;
-      lastTimeout = window.setTimeout(function () {
+      window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
       }, 500);
     });
@@ -207,7 +206,7 @@
       });
 
       // window.gallery.photos = photos;
-      lastTimeout = window.setTimeout(function () {
+      window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
       }, 500);
     });

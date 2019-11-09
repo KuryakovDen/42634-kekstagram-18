@@ -4,11 +4,16 @@
   window.filter = {
     getEffectFilterSlider: function () {
       return window.post.getFormEditPicture().querySelector('.effect-level');
+    },
+
+    getNewUploadPhoto: function () {
+      return document.querySelector('#upload-file');
     }
   };
 
   var sliderLevel = window.filter.getEffectFilterSlider();
   var filterPopup = window.post.getFormEditPicture();
+  var uploadedPhoto = window.filter.getNewUploadPhoto();
 
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
@@ -53,10 +58,6 @@
     setPhotoFilter(filters[i]);
   }
 
-  var getNewUploadPhoto = function () {
-    return document.querySelector('#upload-file');
-  };
-
   var getEditPictureCancel = function () {
     return filterPopup.querySelector('.img-upload__cancel');
   };
@@ -65,9 +66,10 @@
     filterPopup.classList.remove('hidden');
   };
 
-  getNewUploadPhoto().addEventListener('change', onClickUploadFile);
+  uploadedPhoto.addEventListener('change', onClickUploadFile);
 
   var closePopupFilter = function () {
+    uploadedPhoto.value = null;
     filterPopup.classList.add('hidden');
   };
 

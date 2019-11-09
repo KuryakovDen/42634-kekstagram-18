@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var uploadedPhoto = window.filter.getNewUploadPhoto();
+
   var getFilterForm = function () {
     return document.querySelector('.img-upload__form');
   };
@@ -15,6 +17,7 @@
 
   var onSendSuccess = function () {
     getFilterOverlay().classList.add('hidden');
+    uploadedPhoto.value = null;
 
     var mainPage = function () {
       return document.querySelector('main');
