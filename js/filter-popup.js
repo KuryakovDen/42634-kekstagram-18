@@ -20,7 +20,7 @@
   var onSendSuccess = function () {
     filterOverlay.classList.add('hidden');
 
-    var resetData = function () {
+    var resetFilterForm = function () {
       var uploadedPhoto = window.filter.getNewUploadPhoto();
       uploadedPhoto.value = null;
 
@@ -43,8 +43,19 @@
           return document.querySelector('.img-upload__preview img');
         };
 
+        var getCheckedFilter = function () {
+          return document.querySelector('.effects__radio:checked');
+        };
+
+        var getDefaultFilter = function () {
+          return document.querySelector('#effect-none');
+        };
+
+        getCheckedFilter().checked = false;
+        getDefaultFilter().checked = true;
+
         getUploadPreview().style = null;
-        getUploadPreviewImage().className = 'effects__preview--none';
+        getUploadPreviewImage().classList = 'effects__preview--none';
       };
 
       var resetText = function () {
@@ -60,7 +71,7 @@
       resetText();
     };
 
-    resetData();
+    resetFilterForm();
 
     var mainPage = function () {
       return document.querySelector('main');

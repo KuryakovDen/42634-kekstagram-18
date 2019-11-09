@@ -17,6 +17,7 @@
 
       for (var i = 0; i < photos.length; i++) {
 
+        // photos.forEach(function (actualPhoto) {
         var renderGalleryPhotos = function () {
           var photoElement = getPhotoTemplate().cloneNode(true);
 
@@ -36,6 +37,7 @@
             return photoElement.querySelector('.picture__comments');
           };
 
+          // var photo = actualPhoto;
           var photo = photos[i];
 
           getPictureAddress().src = photo.url;
@@ -143,6 +145,7 @@
 
           document.addEventListener('keydown', onEscCloseFullPhoto);
         };
+        // });
       }
 
       return photos;

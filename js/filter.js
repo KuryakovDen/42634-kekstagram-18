@@ -21,7 +21,6 @@
 
       var onClickFilterEffect = function () {
         getUploadPreviewImage().className = '';
-        getUploadPreviewImage().className = 'effects__preview--none';
         getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
 
         if (effect !== 'none') {
