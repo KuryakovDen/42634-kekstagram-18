@@ -16,10 +16,10 @@
       };
 
       for (var i = 0; i < photos.length; i++) {
+        var photoElement = getPhotoTemplate().cloneNode(true);
 
         // photos.forEach(function (actualPhoto) {
         var renderGalleryPhotos = function () {
-          var photoElement = getPhotoTemplate().cloneNode(true);
 
           var getPicturesList = function () {
             return document.querySelector('.pictures');
@@ -45,8 +45,6 @@
           getPictureComments().textContent = photo.comments.message;
 
           getPicturesList().appendChild(photoElement);
-
-          photoElement.addEventListener('click', onClickShowFullPhoto);
         };
 
         renderGalleryPhotos();
@@ -146,6 +144,8 @@
           document.addEventListener('keydown', onEscCloseFullPhoto);
         };
         // });
+
+        photoElement.addEventListener('click', onClickShowFullPhoto);
       }
 
       return photos;
