@@ -12,7 +12,7 @@
   var startSliderDepth = 1 + 'px';
 
   var LEFT_BORDER_PIN = 725;
-  var RIGHT_BORDER_PIN = 1170;
+  var RIGHT_BORDER_PIN = 1168;
 
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');

@@ -2,8 +2,12 @@
 
 (function () {
   window.scale = {
+    getFormEditPicture: function () {
+      return document.querySelector('.img-upload__overlay');
+    },
+
     getUploadPreview: function () {
-      return window.post.getFormEditPicture().querySelector('.img-upload__preview');
+      return window.scale.getFormEditPicture().querySelector('.img-upload__preview');
     },
 
     getControllerValue: function () {
@@ -16,7 +20,7 @@
     }
   };
 
-  var filterOverlay = window.post.getFormEditPicture();
+  var filterOverlay = window.scale.getFormEditPicture();
   var filterImage = window.scale.getUploadPreview();
 
   var controllerStep = 25;

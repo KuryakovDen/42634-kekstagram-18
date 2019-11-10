@@ -12,13 +12,12 @@
       };
 
       var getPhoto = function (element) {
-        element.url === this.attributes.src.value; // eslint-disable-line
+        return element.url === this.attributes.src.value; // eslint-disable-line
       };
 
       for (var i = 0; i < photos.length; i++) {
         var photoElement = getPhotoTemplate().cloneNode(true);
 
-        // photos.forEach(function (actualPhoto) {
         var renderGalleryPhotos = function () {
 
           var getPicturesList = function () {
@@ -37,7 +36,6 @@
             return photoElement.querySelector('.picture__comments');
           };
 
-          // var photo = actualPhoto;
           var photo = photos[i];
 
           getPictureAddress().src = photo.url;
@@ -55,21 +53,21 @@
           var currentPhoto = window.gallery.photos.find(getPhoto, target);
 
           var renderFullPhoto = function () {
-            var getgetBigPictureAddress = function () {
+            var getBigPictureAddress = function () {
               return getBigPicture().querySelector('.big-picture__img img');
             };
 
-            var getgetBigPictureCountLikes = function () {
+            var getBigPictureCountLikes = function () {
               return getBigPicture().querySelector('.likes-count');
             };
 
-            var getgetBigPictureDescription = function () {
+            var getBigPictureDescription = function () {
               return getBigPicture().querySelector('.social__caption');
             };
 
-            getgetBigPictureAddress().src = currentPhoto.url;
-            getgetBigPictureCountLikes().textContent = currentPhoto.likes;
-            getgetBigPictureDescription().textContent = currentPhoto.description;
+            getBigPictureAddress().src = currentPhoto.url;
+            getBigPictureCountLikes().textContent = currentPhoto.likes;
+            getBigPictureDescription().textContent = currentPhoto.description;
           };
 
           renderFullPhoto();
@@ -87,17 +85,9 @@
               return document.querySelector('.social__comments');
             };
 
-            var getgetBigPictureCountComments = function () {
+            var getBigPictureCountComments = function () {
               return document.querySelector('.comments-count');
             };
-
-            /* var hideCommentCount = function () {
-              return document.querySelector('.social__comment-count').classList.add('visually-hidden');
-            };
-
-            var hideCommentsLoader = function () {
-              return document.querySelector('.comments-loader').classList.add('visually-hidden');
-            };*/
 
             currentPhoto.comments.forEach(function (comment) {
               var newSocialComment = getSocialComment().cloneNode(true);
@@ -114,26 +104,26 @@
 
               getSocialPicture().src = comment.avatar;
               getSocialPicture().alt = comment.author;
-              getgetBigPictureCountComments().textContent = getAllSocialComments().length;
+              getBigPictureCountComments().textContent = getAllSocialComments().length;
               getSocialCommentText().textContent = comment.message;
             });
           };
 
           renderComments();
 
-          var getgetBigPictureCancel = function () {
+          var getBigPictureCancel = function () {
             return document.querySelector('.big-picture__cancel');
           };
 
           var closePostPopup = function () {
-            getBigPicture().classList.add('visually-hidden');
+            getBigPicture().classList.add('hidden');
           };
 
           var onEscCloseFullPhoto = function (evtEsc) {
             window.util.escEvent(evtEsc, closePostPopup);
           };
 
-          getgetBigPictureCancel().addEventListener('click', closePostPopup);
+          getBigPictureCancel().addEventListener('click', closePostPopup);
 
           var showFullPhoto = function () {
             return getBigPicture().classList.remove('hidden');
@@ -143,7 +133,6 @@
 
           document.addEventListener('keydown', onEscCloseFullPhoto);
         };
-        // });
 
         photoElement.addEventListener('click', onClickShowFullPhoto);
       }
@@ -174,13 +163,46 @@
       currentButton().addEventListener('click', onClickCurrentButton);
     };
 
-    renderCurrentGallery('popular', function () {
-      // var photoCopy = photos.slice();
+    var getPictures = function () {
+      return document.querySelectorAll('.pictures a');
+    };
 
-      // console.log(photoCopy);
+    var removePictures = function () {
+      getPictures().forEach(function (element) {
+        element.parentNode.removeChild(element);
+      });
+    };
+
+    var toogleActiveButton = function (className) {
+      var getActivePhotosButton = function () {
+        return document.querySelector('.img-filters__button--active');
+      };
+
+      var getRandomPhotosButton = function () {
+        return document.querySelector('#' + className + '');
+      };
+
+      getActivePhotosButton().classList.remove('img-filters__button--active');
+
+      getRandomPhotosButton().classList.add('img-filters__button--active');
+    };
+
+    renderCurrentGallery('popular', function () {
+      removePictures();
+
+      toogleActiveButton('filter-popular');
+
+      window.gallery.photos = photos;
+      window.setTimeout(function () {
+        window.gallery.buildGallery(photos);
+      }, 500);
     });
 
     renderCurrentGallery('random', function () {
+      removePictures();
+
+      toogleActiveButton('filter-random');
+
       var photoCopy = photos.slice();
 
       photoCopy.sort(function () {
@@ -189,13 +211,16 @@
 
       photoCopy.splice(10);
 
-      // window.gallery.photos = photos;
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
       }, 500);
     });
 
     renderCurrentGallery('discussed', function () {
+      removePictures();
+
+      toogleActiveButton('filter-discussed');
+
       var photoCopy = photos.slice();
 
       photoCopy.sort(function (firstArray, secondArray) {
@@ -208,7 +233,6 @@
         return 0;
       });
 
-      // window.gallery.photos = photos;
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
       }, 500);

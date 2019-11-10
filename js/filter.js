@@ -3,7 +3,7 @@
 (function () {
   window.filter = {
     getEffectFilterSlider: function () {
-      return window.post.getFormEditPicture().querySelector('.effect-level');
+      return window.scale.getFormEditPicture().querySelector('.effect-level');
     },
 
     getNewUploadPhoto: function () {
@@ -37,7 +37,7 @@
   };
 
   var sliderLevel = window.filter.getEffectFilterSlider();
-  var filterPopup = window.post.getFormEditPicture();
+  var filterPopup = window.scale.getFormEditPicture();
   var uploadedPhoto = window.filter.getNewUploadPhoto();
 
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
