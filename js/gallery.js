@@ -137,7 +137,7 @@
               getSocialCommentText().textContent = comment.message;
             });
 
-            getBigPictureCountComments().textContent = parseInt(getBigPictureCountComments().textContent, 10) - 1;
+            getBigPictureCountComments().textContent = currentPhoto.comments.length;
           };
 
           renderComments(0, 5);
