@@ -37,8 +37,12 @@
     return document.querySelector('.social__comment');
   };
 
-  var getBigPictureCountComments = function () {
+  var getCountAllComments = function () {
     return document.querySelector('.comments-count');
+  };
+
+  var getCountSomeComments = function () {
+    return document.querySelector('.comments-count--current');
   };
 
   var getCommentsLoader = function () {
@@ -74,12 +78,12 @@
 
     renderFullPhoto();
 
-    var renderComments = function (n) {
+    var renderComments = function (highBorder) {
       var fragment = document.createDocumentFragment();
       var socialComments = getSocialComments();
 
       currentPhoto.comments
-      .slice(0, n)
+      .slice(0, highBorder)
       .forEach(function (comment) {
         var newSocialComment = getSocialComment().cloneNode(true);
 
@@ -97,20 +101,27 @@
 
         getSocialPicture().src = comment.avatar;
         getSocialPicture().alt = comment.author;
-        getBigPictureCountComments().textContent = getSocialComments().length;
+        getCountAllComments().textContent = getSocialComments().length;
         getSocialCommentText().textContent = comment.message;
       });
 
       socialComments.innerHTML = '';
       socialComments.appendChild(fragment);
 
-      getBigPictureCountComments().textContent = currentPhoto.comments.length;
+      if (parseInt(window.gallery.defaultComments, 10) >= parseInt(currentPhoto.comments.length, 10)) {
+        window.gallery.defaultComments = currentPhoto.comments.length;
+        getCommentsLoader().classList.add('hidden');
+      }
+
+      getCountAllComments().textContent = parseInt(currentPhoto.comments.length, 10);
+      getCountSomeComments().textContent = parseInt(window.gallery.defaultComments, 10);
     };
 
     renderComments(window.gallery.showedComments);
 
     getCommentsLoader().addEventListener('click', function () {
       window.gallery.showedComments += 5;
+      window.gallery.defaultComments += 5;
 
       renderComments(window.gallery.showedComments);
     });
@@ -122,6 +133,7 @@
 
   window.gallery = {
     showedComments: 5,
+    defaultComments: 5,
 
     buildGallery: function (photos) {
 
