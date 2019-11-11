@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.sliderDrag = {
+  window.drag = {
     resetSlider: function () {
       getSliderPin().style.left = startSliderPin;
       getSliderDepth().style.width = startSliderDepth;
@@ -12,7 +12,7 @@
   var startSliderDepth = 1 + 'px';
 
   var LEFT_BORDER_PIN = 725;
-  var RIGHT_BORDER_PIN = 1170;
+  var RIGHT_BORDER_PIN = 1168;
 
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
@@ -76,7 +76,7 @@
         getSliderPin().addEventListener('click', onClickPreventDefault);
       }
 
-      getEffectLevelPhotoValue().value = startCoords.x / 15; // 20
+      getEffectLevelPhotoValue().value = startCoords.x / 15;
 
       if (getCurrentPhotoFilter().value === 'chrome') {
         window.scale.getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';

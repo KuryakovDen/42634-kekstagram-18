@@ -24,7 +24,7 @@
       var uploadedPhoto = window.filter.getNewUploadPhoto();
       uploadedPhoto.value = null;
 
-      window.sliderDrag.resetSlider();
+      window.drag.resetSlider();
 
       var resetScale = function () {
         var fullsizeFilter = 100;
@@ -73,7 +73,7 @@
 
     resetFilterForm();
 
-    var mainPage = function () {
+    var getMainPage = function () {
       return document.querySelector('main');
     };
 
@@ -81,7 +81,7 @@
       return successTemplate().cloneNode(true);
     };
 
-    var getSuccessElement = mainPage().appendChild(getSuccessPopup());
+    var getSuccessElement = getMainPage().appendChild(getSuccessPopup());
 
     var getSuccessMessage = function () {
       return getSuccessElement.querySelector('.success__inner');
@@ -117,7 +117,7 @@
   var onSendError = function () {
     filterOverlay.classList.add('hidden');
 
-    var mainPage = function () {
+    var getMainPage = function () {
       return document.querySelector('main');
     };
 
@@ -129,7 +129,7 @@
       return errorTemplate().cloneNode(true);
     };
 
-    var getErrorElement = mainPage().appendChild(getErrorPopup());
+    var getErrorElement = getMainPage().appendChild(getErrorPopup());
 
     var getErrorMessage = function () {
       return getErrorElement.querySelector('.error__inner');
@@ -163,7 +163,12 @@
   };
 
   getFilterForm().addEventListener('submit', function (evt) {
-    window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
     evt.preventDefault();
+
+    var hashtags = window.hashtags.getPictureHashtags();
+
+    if (hashtags.checkValidity()) {
+      window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
+    }
   });
 }());
