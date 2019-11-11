@@ -21,10 +21,6 @@
     return document.querySelector('#picture').content.querySelector('.picture');
   };
 
-  var getPhoto = function (element) {
-    return element.url === this.attributes.src.value; // eslint-disable-line
-  };
-
   var getPicturesList = function () {
     return document.querySelector('.pictures');
   };
@@ -68,7 +64,9 @@
   var onClickShowFullPhoto = function (evt) {
     window.hashtags.getPictureHashtags().setCustomValidity('');
     var target = evt.target;
-    var currentPhoto = window.gallery.photos.find(getPhoto, target);
+    var currentPhoto = window.gallery.photos.find(function (element) {
+      return element.url === target.attributes.src.value;
+    });
 
     var renderFullPhoto = function () {
       getBigPictureAddress().src = currentPhoto.url;
