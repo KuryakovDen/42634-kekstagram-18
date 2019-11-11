@@ -22,7 +22,7 @@
   };
 
   var getPhoto = function (element) {
-    return element.url === this.attributes.src.value; // eslint-disable-line
+    return element.url === this.attributes.src.value; /* eslint-disable-line no-invalid-this */
   };
 
   var getPicturesList = function () {
