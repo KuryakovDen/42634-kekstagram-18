@@ -2,7 +2,7 @@
 
 (function () {
   var getPictures = function () {
-    return document.querySelectorAll('.pictures a');
+    return document.querySelectorAll('.picture__img');
   };
 
   window.another = {
@@ -47,7 +47,6 @@
 
       window.another.toogleActiveButton('filter-popular');
 
-      window.gallery.photos = window.gallery.photos;
       window.setTimeout(function () {
         window.gallery.buildGallery(window.gallery.photos);
       }, 500);

@@ -34,11 +34,9 @@
       }
     });
 
-    if (message !== '') {
-      return hashtagField.setCustomValidity(message);
-    } else {
-      return hashtagField.setCustomValidity(message);
-    }
+    hashtagField.setCustomValidity(message);
+
+    hashtagField.reportValidity();
   };
 
   hashtagField.addEventListener('change', onEnterHashtags);

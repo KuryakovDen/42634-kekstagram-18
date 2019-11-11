@@ -24,7 +24,7 @@
       var uploadedPhoto = window.filter.getNewUploadPhoto();
       uploadedPhoto.value = null;
 
-      window.sliderDrag.resetSlider();
+      window.drag.resetSlider();
 
       var resetScale = function () {
         var fullsizeFilter = 100;
@@ -164,8 +164,11 @@
 
   getFilterForm().addEventListener('submit', function (evt) {
     evt.preventDefault();
-    // if (validateForm()) {
-    window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
-    // }
+
+    var hashtags = window.hashtags.getPictureHashtags();
+
+    if (hashtags.checkValidity()) {
+      window.send('https://js.dump.academy/kekstagram', new FormData(getFilterForm()), onSendSuccess, onSendError);
+    }
   });
 }());

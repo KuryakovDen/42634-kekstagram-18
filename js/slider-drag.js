@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.sliderDrag = {
+  window.drag = {
     resetSlider: function () {
       getSliderPin().style.left = startSliderPin;
       getSliderDepth().style.width = startSliderDepth;
@@ -78,21 +78,19 @@
 
       getEffectLevelPhotoValue().value = startCoords.x / 15;
 
-      var currentFilter = getCurrentPhotoFilter().value;
-
-      if (currentFilter === 'chrome') {
+      if (getCurrentPhotoFilter().value === 'chrome') {
         window.scale.getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
       }
 
-      if (currentFilter === 'sepia') {
+      if (getCurrentPhotoFilter().value === 'sepia') {
         window.scale.getUploadPreview().style.filter = 'sepia(' + getEffectLevelPhotoValue().value / 100 + ')';
       }
 
-      if (currentFilter === 'marvin') {
+      if (getCurrentPhotoFilter().value === 'marvin') {
         window.scale.getUploadPreview().style.filter = 'invert(' + getEffectLevelPhotoValue().value + '%)';
       }
 
-      if (currentFilter === 'phobos') {
+      if (getCurrentPhotoFilter().value === 'phobos') {
         if (getEffectLevelPhotoValue().value === 0) {
           window.scale.getUploadPreview().style.filter = 'blur(0)';
         } else if (getEffectLevelPhotoValue().value > 0 && getEffectLevelPhotoValue().value <= 0.33) {
@@ -104,7 +102,7 @@
         }
       }
 
-      if (currentFilter === 'heat') {
+      if (getCurrentPhotoFilter().value === 'heat') {
         if (getEffectLevelPhotoValue().value === 0) {
           window.scale.getUploadPreview().style.filter = 'brightness(1)';
         } else if (getEffectLevelPhotoValue().value <= 50) {

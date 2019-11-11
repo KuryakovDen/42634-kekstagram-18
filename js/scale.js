@@ -45,11 +45,6 @@
     getBigController().addEventListener('click', onClickPlusControl);
   };
 
-  /* var updateScale = function (newScale) {
-    SCALE = newScale;
-    renderScale(newScale);
-  };*/
-
   var onClickMinusControl = function () {
     if (SCALE === 25) {
       return;

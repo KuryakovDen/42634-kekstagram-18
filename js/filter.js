@@ -29,7 +29,7 @@
           sliderLevel.classList.add('visually-hidden');
         }
 
-        window.sliderDrag.resetSlider();
+        window.drag.resetSlider();
       };
 
       return getPhotoEffect().addEventListener('click', onClickFilterEffect);
