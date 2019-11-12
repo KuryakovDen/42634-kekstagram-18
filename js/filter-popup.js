@@ -13,7 +13,7 @@
     return document.querySelector('.img-upload__form');
   };
 
-  var successTemplate = function () {
+  var getSuccessTemplate = function () {
     return document.querySelector('#success').content.querySelector('.success');
   };
 
@@ -78,7 +78,7 @@
     };
 
     var getSuccessPopup = function () {
-      return successTemplate().cloneNode(true);
+      return getSuccessTemplate().cloneNode(true);
     };
 
     var getSuccessElement = getMainPage().appendChild(getSuccessPopup());

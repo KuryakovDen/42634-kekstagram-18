@@ -11,15 +11,15 @@
     },
 
     renderCurrentGallery: function (name, callback) {
-      var currentButton = function () {
+      var getCurrentButton = function () {
         return document.querySelector('#filter-' + name + '');
       };
 
-      var onClickCurrentButton = function () {
+      var onClickgetCurrentButton = function () {
         callback();
       };
 
-      currentButton().addEventListener('click', onClickCurrentButton);
+      getCurrentButton().addEventListener('click', onClickgetCurrentButton);
     },
 
     removePictures: function () {
