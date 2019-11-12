@@ -60,6 +60,7 @@
 
   var onClickUploadFile = function () {
     filterPopup.classList.remove('hidden');
+    window.filter.getEffectFilterSlider().classList.add('visually-hidden');
   };
 
   uploadedPhoto.addEventListener('change', onClickUploadFile);

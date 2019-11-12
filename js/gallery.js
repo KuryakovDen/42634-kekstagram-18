@@ -58,7 +58,7 @@
   };
 
   var showFullPhoto = function () {
-    return getBigPicture().classList.remove('hidden');
+    getBigPicture().classList.remove('hidden');
   };
 
   var onClickShowFullPhoto = function (evt) {
@@ -177,6 +177,7 @@
 
   var onReceiveError = function () {
     var fragment = document.createDocumentFragment();
+
     var getErrorTemplate = function () {
       return document.querySelector('#error').content.querySelector('.error');
     };
