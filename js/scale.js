@@ -45,12 +45,17 @@
     getBigController().addEventListener('click', onClickPlusControl);
   };
 
+  var updateScale = function (newScale) {
+    SCALE = newScale;
+    renderScale(newScale);
+  };
+
   var onClickMinusControl = function () {
     if (SCALE === 25) {
       return;
     }
-    SCALE = SCALE - STEP;
-    renderScale(SCALE);
+
+    updateScale(SCALE - STEP);
     filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
 
@@ -59,8 +64,7 @@
       return;
     }
 
-    SCALE = SCALE + STEP;
-    renderScale(SCALE);
+    updateScale(SCALE + STEP);
     filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
 
