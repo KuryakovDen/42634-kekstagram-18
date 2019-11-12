@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var STEP = 25;
+  var SCALE = 100;
+
   window.scale = {
     getFormEditPicture: function () {
       return document.querySelector('.img-upload__overlay');
@@ -22,9 +25,6 @@
 
   var filterOverlay = window.scale.getFormEditPicture();
   var filterImage = window.scale.getUploadPreview();
-
-  var controllerStep = 25;
-  var SCALE = 100;
 
   var getSmallController = function () {
     return filterOverlay.querySelector('.scale__control--smaller');
@@ -49,7 +49,7 @@
     if (SCALE === 25) {
       return;
     }
-    SCALE = SCALE - controllerStep;
+    SCALE = SCALE - STEP;
     renderScale(SCALE);
     filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
@@ -59,7 +59,7 @@
       return;
     }
 
-    SCALE = SCALE + controllerStep;
+    SCALE = SCALE + STEP;
     renderScale(SCALE);
     filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
   };
