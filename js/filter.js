@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
+
   window.filter = {
     getEffectFilterSlider: function () {
       return window.scale.getFormEditPicture().querySelector('.effect-level');
@@ -39,8 +41,6 @@
   var sliderLevel = window.filter.getEffectFilterSlider();
   var filterPopup = window.scale.getFormEditPicture();
   var uploadedPhoto = window.filter.getNewUploadPhoto();
-
-  var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
   var getFilterComment = function () {
     return filterPopup.querySelector('.text__description');

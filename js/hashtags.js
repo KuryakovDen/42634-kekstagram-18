@@ -20,6 +20,7 @@
 
     hashtags.forEach(function (currentHashtag, index) {
       var hashtag = currentHashtag;
+      console.log(hashtag.slice(1));
 
       if (!hashtag.startsWith('#')) {
         message = 'Введите хэштег, начиная с решётки!';
@@ -29,6 +30,8 @@
         message = 'Такой хэштег уже существует!';
       } else if (hashtags.length > 5) {
         message = 'Слишком много хэштегов!';
+      } else if (hashtag.slice(1).indexOf('#') !== -1) {
+        message = 'Ваши хэштеги не разделены пробелами!'
       } else {
         message = '';
       }

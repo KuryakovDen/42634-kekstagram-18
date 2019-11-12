@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var LEFT_BORDER_PIN = 725;
+  var RIGHT_BORDER_PIN = 1168;
+
   window.drag = {
     resetSlider: function () {
       getSliderPin().style.left = startSliderPin;
@@ -10,9 +13,6 @@
 
   var startSliderPin = 7 + 'px';
   var startSliderDepth = 1 + 'px';
-
-  var LEFT_BORDER_PIN = 725;
-  var RIGHT_BORDER_PIN = 1168;
 
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
