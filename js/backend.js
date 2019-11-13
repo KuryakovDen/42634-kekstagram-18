@@ -1,14 +1,18 @@
 'use strict';
 
 (function () {
+  var successCode = 200;
+  var sendMethod = 'POST';
+  var receiveMethod = 'GET';
+
   window.receive = function (url, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open('GET', url);
+    xhr.open(receiveMethod, url);
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === successCode) {
         onSuccess(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -30,7 +34,7 @@
     var xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === successCode) {
         onSuccess(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -45,7 +49,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
-    xhr.open('POST', url);
+    xhr.open(sendMethod, url);
 
     xhr.responseType = 'json';
     xhr.send(data);

@@ -54,7 +54,7 @@
   };
 
   var onEscCloseFullPhoto = function (evtEsc) {
-    window.util.escEvent(evtEsc, onClosePostPopup);
+    window.util.keyEvent(evtEsc, onClosePostPopup, window.util.ESC_KEYCODE);
   };
 
   var showFullPhoto = function () {
@@ -139,6 +139,7 @@
 
       var renderGalleryPhotos = function (photo) {
         var photoElement = document.createRange().createContextualFragment(getPhotoTemplate().innerHTML);
+
         var image = photoElement.querySelector('img');
 
         var comments = photoElement.querySelector('.picture__comments');
@@ -157,6 +158,7 @@
 
       document.querySelectorAll('.picture__img').forEach(function (image) {
         image.addEventListener('click', onClickShowFullPhoto);
+        image.setAttribute('tabindex', 0);
       });
 
       return photos;

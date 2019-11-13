@@ -110,7 +110,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      window.util.escEvent(evt, closeSuccessPopup);
+      window.util.keyEvent(evt, closeSuccessPopup, window.util.ESC_KEYCODE);
     });
   };
 
@@ -158,7 +158,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      window.util.escEvent(evt, closeErrorPopup);
+      window.util.keyEvent(evt, closeErrorPopup, window.util.ESC_KEYCODE);
     });
   };
 

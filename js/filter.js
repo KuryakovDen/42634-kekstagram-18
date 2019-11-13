@@ -76,7 +76,7 @@
 
   document.addEventListener('keydown', function (evt) {
     if (!getFilterComment().matches(':focus') && !window.hashtags.getPictureHashtags().matches(':focus')) {
-      window.util.escEvent(evt, closePopupFilter);
+      window.util.keyEvent(evt, closePopupFilter, window.util.ESC_KEYCODE);
     }
   });
 }());

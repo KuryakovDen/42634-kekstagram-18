@@ -62,6 +62,9 @@
     };
 
     var onMouseUpPin = function (evtUp) {
+      var variableCorrelation = 20;
+      var effectCorrelation = startCoords.x / variableCorrelation;
+
       evtUp.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMovePin);
@@ -76,7 +79,7 @@
         getSliderPin().addEventListener('click', onClickPreventDefault);
       }
 
-      getEffectLevelPhotoValue().value = startCoords.x / 20;
+      getEffectLevelPhotoValue().value = effectCorrelation;
 
       if (getCurrentPhotoFilter().value === 'chrome') {
         window.scale.getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
