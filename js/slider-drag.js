@@ -72,11 +72,11 @@
           clickEvt.preventDefault();
           getSliderPin().removeEventListener('click', onClickPreventDefault);
         };
-      } else {
+
         getSliderPin().addEventListener('click', onClickPreventDefault);
       }
 
-      getEffectLevelPhotoValue().value = startCoords.x / 15;
+      getEffectLevelPhotoValue().value = startCoords.x / 20;
 
       if (getCurrentPhotoFilter().value === 'chrome') {
         window.scale.getUploadPreview().style.filter = 'grayscale(' + getEffectLevelPhotoValue().value / 100 + ')';
