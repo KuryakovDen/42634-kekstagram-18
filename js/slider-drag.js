@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var LEFT_BORDER_PIN = 725;
+  var LEFT_BORDER_PIN = 720;
   var RIGHT_BORDER_PIN = 1168;
 
   window.drag = {
