@@ -13,22 +13,25 @@
 
   var onChangeFileChooser = function () {
     var file = getFileChooser().files[0];
-    var fileName = file.name.toLowerCase();
 
-    var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
-    });
+    if (file) {
+      var fileName = file.name.toLowerCase();
 
-    if (matches) {
-      var reader = new FileReader();
+      var matches = FILE_TYPES.some(function (it) {
+        return fileName.endsWith(it);
+      });
 
-      var onLoadReader = function () {
-        getCurrentFilterImage().src = reader.result;
-      };
+      if (matches) {
+        var reader = new FileReader();
 
-      reader.addEventListener('load', onLoadReader);
+        var onLoadReader = function () {
+          getCurrentFilterImage().src = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.addEventListener('load', onLoadReader);
+
+        reader.readAsDataURL(file);
+      }
     }
   };
 
