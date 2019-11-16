@@ -57,6 +57,10 @@
     window.util.keyEvent(evtEsc, onClosePostPopup, window.util.ESC_KEYCODE);
   };
 
+  var onPressPhoto = function (evt) {
+    window.util.keyEvent(evt, onClickShowFullPhoto, window.util.ENTER_KEYCODE);
+  };
+
   var showFullPhoto = function () {
     getBigPicture().classList.remove('hidden');
   };
@@ -159,6 +163,7 @@
       document.querySelectorAll('.picture__img').forEach(function (image) {
         image.addEventListener('click', onClickShowFullPhoto);
         image.setAttribute('tabindex', 0);
+        image.addEventListener('keydown', onPressPhoto);
       });
 
       return photos;

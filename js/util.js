@@ -7,7 +7,7 @@
 
     keyEvent: function (evt, action, key) {
       if (evt.keyCode === key) {
-        action();
+        action(evt);
       }
     },
 
