@@ -13,7 +13,7 @@
     return document.querySelector('.img-upload__form');
   };
 
-  var successTemplate = function () {
+  var getSuccessTemplate = function () {
     return document.querySelector('#success').content.querySelector('.success');
   };
 
@@ -78,7 +78,7 @@
     };
 
     var getSuccessPopup = function () {
-      return successTemplate().cloneNode(true);
+      return getSuccessTemplate().cloneNode(true);
     };
 
     var getSuccessElement = getMainPage().appendChild(getSuccessPopup());
@@ -110,7 +110,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      window.util.escEvent(evt, closeSuccessPopup);
+      window.util.keyEvent(evt, closeSuccessPopup, window.util.ESC_KEYCODE);
     });
   };
 
@@ -158,7 +158,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      window.util.escEvent(evt, closeErrorPopup);
+      window.util.keyEvent(evt, closeErrorPopup, window.util.ESC_KEYCODE);
     });
   };
 

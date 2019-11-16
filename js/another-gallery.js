@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var callbackDelay = 500;
+
   var getPictures = function () {
     return document.querySelectorAll('.picture__img');
   };
@@ -11,15 +13,15 @@
     },
 
     renderCurrentGallery: function (name, callback) {
-      var currentButton = function () {
+      var getCurrentButton = function () {
         return document.querySelector('#filter-' + name + '');
       };
 
-      var onClickCurrentButton = function () {
+      var onClickgetCurrentButton = function () {
         callback();
       };
 
-      currentButton().addEventListener('click', onClickCurrentButton);
+      getCurrentButton().addEventListener('click', onClickgetCurrentButton);
     },
 
     removePictures: function () {
@@ -49,7 +51,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(window.gallery.photos);
-      }, 500);
+      }, callbackDelay);
     },
 
     onClickRandomGallery: function () {
@@ -67,7 +69,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
-      }, 500);
+      }, callbackDelay);
     },
 
     onClickDiscussedGallery: function () {

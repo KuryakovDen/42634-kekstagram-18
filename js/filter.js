@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
+
   window.filter = {
     getEffectFilterSlider: function () {
       return window.scale.getFormEditPicture().querySelector('.effect-level');
@@ -40,8 +42,6 @@
   var filterPopup = window.scale.getFormEditPicture();
   var uploadedPhoto = window.filter.getNewUploadPhoto();
 
-  var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
-
   var getFilterComment = function () {
     return filterPopup.querySelector('.text__description');
   };
@@ -60,6 +60,7 @@
 
   var onClickUploadFile = function () {
     filterPopup.classList.remove('hidden');
+    window.filter.getEffectFilterSlider().classList.add('visually-hidden');
   };
 
   uploadedPhoto.addEventListener('change', onClickUploadFile);
@@ -75,7 +76,7 @@
 
   document.addEventListener('keydown', function (evt) {
     if (!getFilterComment().matches(':focus') && !window.hashtags.getPictureHashtags().matches(':focus')) {
-      window.util.escEvent(evt, closePopupFilter);
+      window.util.keyEvent(evt, closePopupFilter, window.util.ESC_KEYCODE);
     }
   });
 }());
