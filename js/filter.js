@@ -3,6 +3,9 @@
 (function () {
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
+  var DEFAULT_SCALE = 100;
+  var DEFAULT_SCALE_STYLE = 1;
+
   window.filter = {
     getEffectFilterSlider: function () {
       return window.scale.getFormEditPicture().querySelector('.effect-level');
@@ -22,7 +25,15 @@
       };
 
       var onClickFilterEffect = function () {
-        getUploadPreviewImage().className = '';
+        var resetEffect = function () {
+          getUploadPreviewImage().className = '';
+          getUploadPreviewImage().style.transform = 'scale(' + DEFAULT_SCALE_STYLE + ')';
+          window.scale.renderScale(DEFAULT_SCALE);
+          window.scale.updateScale(DEFAULT_SCALE);
+        };
+
+        resetEffect();
+
         getUploadPreviewImage().classList.add('effects__preview--' + effect + '');
 
         if (effect !== 'none') {

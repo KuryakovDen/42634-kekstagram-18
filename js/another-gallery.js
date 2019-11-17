@@ -91,7 +91,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
-      }, 500);
+      }, callbackDelay);
     }
   };
 }());
