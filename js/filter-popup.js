@@ -22,9 +22,7 @@
 
     var resetFilterForm = function () {
       var uploadedPhoto = window.filter.getNewUploadPhoto();
-      uploadedPhoto.value = null;
-
-      window.drag.resetSlider();
+      uploadedPhoto.value = '';
 
       var resetScale = function () {
         var fullsizeFilter = 100;
