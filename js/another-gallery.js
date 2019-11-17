@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var callbackDelay = 500;
+  var CALLBACK_DELAY = 500;
 
   var getPictures = function () {
     return document.querySelectorAll('.picture__img');
@@ -51,7 +51,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(window.gallery.photos);
-      }, callbackDelay);
+      }, CALLBACK_DELAY);
     },
 
     onClickRandomGallery: function () {
@@ -69,7 +69,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
-      }, callbackDelay);
+      }, CALLBACK_DELAY);
     },
 
     onClickDiscussedGallery: function () {
@@ -91,7 +91,7 @@
 
       window.setTimeout(function () {
         window.gallery.buildGallery(photoCopy);
-      }, callbackDelay);
+      }, CALLBACK_DELAY);
     }
   };
 }());

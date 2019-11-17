@@ -4,6 +4,7 @@
   var filters = ['none', 'chrome', 'sepia', 'marvin', 'phobos', 'heat'];
 
   var DEFAULT_SCALE = 100;
+  var DEFAULT_RANGE_VALUE = 100;
   var DEFAULT_SCALE_STYLE = 1;
 
   window.filter = {
@@ -29,7 +30,7 @@
           getUploadPreviewImage().className = '';
           getUploadPreviewImage().style.transform = 'scale(' + DEFAULT_SCALE_STYLE + ')';
           getUploadPreviewImage().style.filter = '';
-          document.querySelector('input[type="range"]').value = 100;
+          document.querySelector('input[type="range"]').value = DEFAULT_RANGE_VALUE;
           window.scale.renderScale(DEFAULT_SCALE);
           window.scale.updateScale(DEFAULT_SCALE);
         };

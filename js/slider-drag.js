@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var FILTER_PROPORTION = 100;
+  var PHOBOS_COEFFICIENT = 3;
+  var HEAT_COEFFICIENT = 3;
+  var HEAT_PROPORTION = 0.33;
+
   var getPhotoUploadEffects = function () {
     return document.querySelector('.img-upload__effects');
   };
@@ -15,11 +20,23 @@
 
   var onRangeChange = function () {
     if (getCurrentPhotoFilter().value === 'chrome') {
-      window.scale.getUploadPreview().style.filter = 'grayscale' + '(' + getEffectLevelPhotoValue().value / 100 + ')';
+      window.scale.getUploadPreview().style.filter = 'grayscale' + '(' + getEffectLevelPhotoValue().value / FILTER_PROPORTION + ')';
     }
 
     if (getCurrentPhotoFilter().value === 'sepia') {
-      window.scale.getUploadPreview().style.filter = 'sepia' + '(' + getEffectLevelPhotoValue().value / 100 + ')';
+      window.scale.getUploadPreview().style.filter = 'sepia' + '(' + getEffectLevelPhotoValue().value / FILTER_PROPORTION + ')';
+    }
+
+    if (getCurrentPhotoFilter().value === 'marvin') {
+      window.scale.getUploadPreview().style.filter = 'invert' + '(' + getEffectLevelPhotoValue().value + '%)';
+    }
+
+    if (getCurrentPhotoFilter().value === 'chrome') {
+      window.scale.getUploadPreview().style.filter = 'grayscale' + '(' + getEffectLevelPhotoValue().value / FILTER_PROPORTION + ')';
+    }
+
+    if (getCurrentPhotoFilter().value === 'sepia') {
+      window.scale.getUploadPreview().style.filter = 'sepia' + '(' + getEffectLevelPhotoValue().value / FILTER_PROPORTION + ')';
     }
 
     if (getCurrentPhotoFilter().value === 'marvin') {
@@ -27,25 +44,11 @@
     }
 
     if (getCurrentPhotoFilter().value === 'phobos') {
-      if (getEffectLevelPhotoValue().value === 0) {
-        window.scale.getUploadPreview().style.filter = 'blur(0)';
-      } else if (getEffectLevelPhotoValue().value > 0 && getEffectLevelPhotoValue().value <= 0.33) {
-        window.scale.getUploadPreview().style.filter = 'blur(1px)';
-      } else if (getEffectLevelPhotoValue().value > 0.33 && getEffectLevelPhotoValue().value <= 0.66) {
-        window.scale.getUploadPreview().style.filter = 'blur(2px)';
-      } else {
-        window.scale.getUploadPreview().style.filter = 'blur(3px)';
-      }
+      window.scale.getUploadPreview().style.filter = 'blur' + '(' + (getEffectLevelPhotoValue().value / FILTER_PROPORTION) * PHOBOS_COEFFICIENT + 'px)';
     }
 
     if (getCurrentPhotoFilter().value === 'heat') {
-      if (getEffectLevelPhotoValue().value === 0) {
-        window.scale.getUploadPreview().style.filter = 'brightness(1)';
-      } else if (getEffectLevelPhotoValue().value <= 50) {
-        window.scale.getUploadPreview().style.filter = 'brightness(2)';
-      } else {
-        window.scale.getUploadPreview().style.filter = 'brightness(3)';
-      }
+      window.scale.getUploadPreview().style.filter = 'brightness' + '(' + (((getEffectLevelPhotoValue().value) / FILTER_PROPORTION) + HEAT_PROPORTION) * HEAT_COEFFICIENT + ')';
     }
   };
 
