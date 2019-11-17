@@ -555,10 +555,10 @@ main {
   left: 50%;
 
   width: 495px;
-  height: 33px;
+  height: 37px;
 
   font-size: 12px;
-  line-height: 42px;
+  line-height: 25px;
   text-align: center;
   color: #ffffff;
   white-space: nowrap;
@@ -571,56 +571,92 @@ main {
           transform: translateX(-50%);
 }
 
-.effect-level__value {
-  display: none;
+input[type=range] {
+  height: 24px;
+  -webkit-appearance: none;
+  width: 95%;
+  background-color: transparent;
 }
-
-.effect-level__line {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  left: 20px;
-
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
   height: 5px;
-
-  font-size: 0;
-
-  background-color: rgba(255, 231, 81, 0.4);
-
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000;
+  background: #FFE753;
+  border-radius: 0px;
+  border: 0px solid #000000;
 }
-
-.effect-level__pin {
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  z-index: 1;
-
-  width: 18px;
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
   height: 18px;
-  margin: -9px 0 0;
-
-  background-color: #ffe753;
-  border-radius: 50%;
-
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-
-  cursor: move;
+  width: 18px;
+  border-radius: 9px;
+  background: #FFE753;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
 }
-
-.effect-level__depth {
-  position: absolute;
-
-  width: 20%;
-  height: 100%;
-
-  background-color: #ffe753;
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #FFE753;
 }
-
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000;
+  background: #FFE753;
+  border-radius: 0px;
+  border: 0px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
+  height: 18px;
+  width: 18px;
+  border-radius: 9px;
+  background: #FFE753;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #FFE753;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #FFE753;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
+  height: 18px;
+  width: 18px;
+  border-radius: 9px;
+  background: #FFE753;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #FFE753;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #FFE753;
+}
 
 /**
  * Блок с эффектами, которые можно применить к изображению

@@ -2,7 +2,7 @@
 
 (function () {
   var STEP = 25;
-  var SCALE = 100;
+  var Scale = 100;
 
   window.scale = {
     getFormEditPicture: function () {
@@ -23,12 +23,12 @@
     },
 
     updateScale: function (newScale) {
-      SCALE = newScale;
+      Scale = newScale;
       renderScale(newScale);
     },
 
     init: function () {
-      renderScale(SCALE);
+      renderScale(Scale);
       getSmallController().addEventListener('click', onClickMinusControl);
       getBigController().addEventListener('click', onClickPlusControl);
     }
@@ -51,21 +51,21 @@
   };
 
   var onClickMinusControl = function () {
-    if (SCALE === 25) {
+    if (Scale === 25) {
       return;
     }
 
-    window.scale.updateScale(SCALE - STEP);
-    filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
+    window.scale.updateScale(Scale - STEP);
+    filterImage.style.transform = 'scale(' + Scale / 100 + ')';
   };
 
   var onClickPlusControl = function () {
-    if (SCALE < 25 || SCALE >= 100) {
+    if (Scale < 25 || Scale >= 100) {
       return;
     }
 
-    window.scale.updateScale(SCALE + STEP);
-    filterImage.style.transform = 'scale(' + SCALE / 100 + ')';
+    window.scale.updateScale(Scale + STEP);
+    filterImage.style.transform = 'scale(' + Scale / 100 + ')';
   };
 
   window.scale.init();

@@ -28,6 +28,8 @@
         var resetEffect = function () {
           getUploadPreviewImage().className = '';
           getUploadPreviewImage().style.transform = 'scale(' + DEFAULT_SCALE_STYLE + ')';
+          getUploadPreviewImage().style.filter = '';
+          document.querySelector('input[type="range"]').value = 100;
           window.scale.renderScale(DEFAULT_SCALE);
           window.scale.updateScale(DEFAULT_SCALE);
         };
@@ -41,8 +43,6 @@
         } else {
           sliderLevel.classList.add('visually-hidden');
         }
-
-        window.drag.resetSlider();
       };
 
       return getPhotoEffect().addEventListener('click', onClickFilterEffect);
